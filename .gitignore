@@ -1,0 +1,101 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Models (large files - track with Git LFS or separately)
+# Comment out if you want to commit models to repo
+# models/*.pkl
+# models/*.h5
+# models/*.pt
+
+# Data (large files)
+# data/*.csv
+# Comment out specific files if needed
+# !data/sample.csv
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# FastAPI/Backend
+backend/__pycache__/
+backend/*/__pycache__/
+backend/.env
+
+# React/Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env.local
+frontend/.env.production
+frontend/.vite/
+frontend/coverage/
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Output files from scripts
+cv_fold_metrics.csv
+cv_predictions.csv
+predictions_*.csv
+diagnostic_*.txt
+
+# Streamlit
+.streamlit/
