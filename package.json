@@ -1,0 +1,30 @@
+{
+  "name": "nasa-exoplanet-hunter",
+  "version": "1.0.0",
+  "description": "AI-powered exoplanet detection system for NASA Space Apps 2025",
+  "scripts": {
+    "start": "./run.sh",
+    "start:win": "run.bat",
+    "backend": "cd backend && python main.py",
+    "frontend": "cd frontend/exoplanet-ui && npm run dev",
+    "setup": "./run.sh --setup-only",
+    "test": "python -m pytest test_*.py",
+    "lint": "cd frontend/exoplanet-ui && npm run lint"
+  },
+  "keywords": [
+    "nasa",
+    "exoplanet",
+    "machine-learning",
+    "ai",
+    "space",
+    "astronomy",
+    "kepler",
+    "tess"
+  ],
+  "author": "NASA Space Apps Challenge Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/murema-v3-exp/nasa-exoplanet-detector"
+  }
+}
