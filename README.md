@@ -1,236 +1,470 @@
-# NASA Exoplanet Hunter 🌌🔭# NASA Exoplanet Hunte---
+# NASA Exoplanet Hunter 🌌🔭# NASA Exoplanet Hunter 🌌🔭# NASA Exoplanet Hunte---
 
 
 
-[![NASA Space Apps 2025](https://img.shields.io/badge/NASA%20Space%20Apps-2025-blue)](https://www.spaceappschallenge.org/)## 🚀 Quick Start
+[![NASA Space Apps 2025](https://img.shields.io/badge/NASA%20Space%20Apps-2025-blue)](https://www.spaceappschallenge.org/)
 
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)### Prerequisites
-
-- Python 3.12+
-
-### NASA Space Apps Challenge 2025- pip
-
-- (Optional) Node.js 18+ for React frontend
-
-**AI-powered exoplanet detection system** built by **Murema Manganyi**, **Thando**, and **Hlali**.
-
-### Installation
-
-🎯 **Goal:** Help astronomers prioritize follow-up observations by identifying the most promising exoplanet candidates from Kepler/K2/TESS mission data using AI and machine learning.```bash
-
-# Clone the repository
-
-**Current Status:** ✅ **MVP Complete** - Working Streamlit app with 87% recall, now preparing production React + FastAPI architecture.git clone https://github.com/YOUR_USERNAME/nasa-exoplanet-detector.git
-
-cd nasa-exoplanet-detector
-
----
-
-# Create virtual environment
-
-## 🚀 Quick Startpython -m venv venv
-
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-### Prerequisites
-
-- Python 3.12+# Install dependencies
-
-- pippip install -r requirements.txt
-
-- (Optional) Node.js 18+ for React frontend```
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)](https://fastapi.tiangolo.com/)[![NASA Space Apps 2025](https://img.shields.io/badge/NASA%20Space%20Apps-2025-blue)](https://www.spaceappschallenge.org/)## 🚀 Quick Start
 
 
 
-### Installation### Run Streamlit MVP (Current)
-
-```bash```bash
-
-# Clone the repositorystreamlit run app_enhanced.py
-
-git clone https://github.com/YOUR_USERNAME/nasa-exoplanet-detector.git```
-
-cd nasa-exoplanet-detector� Open http://localhost:8501 in your browser
+**AI-powered exoplanet detection system** built by **Murema Manganyi**, **Thando**, and **Hlali** for NASA Space Apps 2025.[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 
 
 
-# Create virtual environment### Run FastAPI Backend (In Development)
+🎯 **Goal:** Help astronomers identify promising exoplanet candidates from Kepler/K2/TESS mission data using machine learning.[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)### Prerequisites
 
-python -m venv venv```bash
 
-venv\Scripts\activate  # Windows# Start API server
 
-cd backend
+**Status:** ✅ **MVP Complete** - Working Streamlit app + FastAPI backend with 87% recall- Python 3.12+
 
-# Install dependenciespython main.py
 
-pip install -r requirements.txt# Or
 
-```uvicorn backend.main:app --reload --port 8000
+---### NASA Space Apps Challenge 2025- pip
 
-```
 
-### Run Streamlit MVP📚 API Docs: http://localhost:8000/docs
+
+## 🚀 Quick Start- (Optional) Node.js 18+ for React frontend
+
+
+
+### Installation**AI-powered exoplanet detection system** built by **Murema Manganyi**, **Thando**, and **Hlali**.
 
 ```bash
 
-streamlit run app_enhanced.py---
+# Clone repository### Installation
+
+git clone https://github.com/murema-v3-exp/nasa-exoplanet-detector.git
+
+cd nasa-exoplanet-detector🎯 **Goal:** Help astronomers prioritize follow-up observations by identifying the most promising exoplanet candidates from Kepler/K2/TESS mission data using AI and machine learning.```bash
+
+
+
+# Create virtual environment# Clone the repository
+
+python -m venv venv
+
+venv\Scripts\activate  # Windows**Current Status:** ✅ **MVP Complete** - Working Streamlit app with 87% recall, now preparing production React + FastAPI architecture.git clone https://github.com/YOUR_USERNAME/nasa-exoplanet-detector.git
+
+
+
+# Install dependenciescd nasa-exoplanet-detector
+
+pip install -r requirements.txt
+
+```---
+
+
+
+### Run Streamlit App# Create virtual environment
+
+```bash
+
+streamlit run app_enhanced.py## 🚀 Quick Startpython -m venv venv
 
 ```
 
-🌐 Open http://localhost:8501 in your browser## ✨ Features
+🌐 Open http://localhost:8501source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 
 
----### Current (Streamlit MVP)
+### Run FastAPI Backend### Prerequisites
 
-- ✅ **CSV Upload**: Drag-and-drop Kepler/K2/TESS format data
+```bash
 
-## ✨ Features- ✅ **Instant Predictions**: XGBoost model with 87% recall
+uvicorn backend.main:app --reload --port 8000- Python 3.12+# Install dependencies
 
-- ✅ **Interactive Threshold**: Adjust confidence slider (0.0-1.0)
+```
 
-### Current (Streamlit MVP) ✅- ✅ **Visualizations**:
-
-- **CSV Upload**: Drag-and-drop Kepler/K2/TESS format data  - Probability histogram with threshold line
-
-- **Instant Predictions**: XGBoost model with 87.1% recall  - Feature importance chart
-
-- **Interactive Threshold**: Adjust confidence slider (0.0-1.0)- ✅ **Export Options**:
-
-- **Visualizations**: Probability histogram + feature importance chart  - Clean CSV (9 essential columns)
-
-- **Export Options**: Clean CSV (9 columns) or Full CSV (82 columns)  - Full CSV (all 82 columns)
-
-- **Filtering**: View all/planets/false positives/high confidence- ✅ **Filtering**: View all/planets/false positives/high confidence
-
-- **Performance**: Processes 9,000+ samples in ~2 seconds- ✅ **Performance**: Processes 9,000+ samples in ~2 seconds
+📚 API Docs: http://localhost:8000/docs- pippip install -r requirements.txt
 
 
 
-### Coming Soon (React + FastAPI) 🔄### Coming Soon (React + FastAPI)
+### Test API- (Optional) Node.js 18+ for React frontend```
 
-- Multi-model support (XGBoost, CNN, Ensemble)- 🔄 Multi-model support (XGBoost, CNN, Ensemble)
+```bash
 
-- Real-time collaboration- 🔄 Real-time collaboration
+python test_api.py
 
-- Batch processing API- 🔄 Batch processing API
+```
 
-- Cloud deployment (AWS/GCP/Azure)- 🔄 Cloud deployment (AWS/GCP/Azure)
-
-- Advanced visualizations (D3.js)- 🔄 Advanced visualizations (D3.js)
-
-- 🔄 User authentication
+### Installation### Run Streamlit MVP (Current)
 
 ---
 
+```bash```bash
+
+## ✨ Features
+
+# Clone the repositorystreamlit run app_enhanced.py
+
+### Streamlit Web App ✅
+
+- 📤 CSV upload (drag-and-drop)git clone https://github.com/YOUR_USERNAME/nasa-exoplanet-detector.git```
+
+- 🎯 XGBoost predictions with 87% recall
+
+- 🎚️ Interactive threshold slidercd nasa-exoplanet-detector� Open http://localhost:8501 in your browser
+
+- 📊 Probability histogram
+
+- 📈 Feature importance chart
+
+- 💾 Clean CSV exports (9 columns)
+
+- 🔍 Filter by confidence level# Create virtual environment### Run FastAPI Backend (In Development)
+
+
+
+### FastAPI Backend ✅python -m venv venv```bash
+
+- 🔌 6 REST API endpoints
+
+- 📦 Model registry (auto-load models)venv\Scripts\activate  # Windows# Start API server
+
+- 🚀 Fast predictions (~2s for 9K samples)
+
+- 📊 Performance metrics APIcd backend
+
+- 🎯 Feature importance API
+
+- ❤️ Health check endpoint# Install dependenciespython main.py
+
+- 📖 Interactive docs (Swagger UI)
+
+pip install -r requirements.txt# Or
+
 ---
 
-## 📊 Model Performance
+```uvicorn backend.main:app --reload --port 8000
 
 ## 📊 Model Performance
 
-| Metric | Score | Target |
+```
 
-|--------|-------|--------|| Metric | Score | Target |
+| Metric | Score |
 
-| **Recall** | 87.1% | >80% ✅ ||--------|-------|--------|
+|--------|-------|### Run Streamlit MVP📚 API Docs: http://localhost:8000/docs
+
+| **Recall** | 87.1% |
+
+| **Precision** | 81.8% |```bash
+
+| **ROC-AUC** | 89.4% |
+
+| **F1 Score** | 84.3% |streamlit run app_enhanced.py---
+
+
+
+**Cross-Validation (5-Fold):** 85.67% ± 1.87% recall```
+
+
+
+**Dataset:** 9,201 Kepler samples (50/50 split)🌐 Open http://localhost:8501 in your browser## ✨ Features
+
+
+
+---
+
+
+
+## 🗂️ Project Structure---### Current (Streamlit MVP)
+
+
+
+```- ✅ **CSV Upload**: Drag-and-drop Kepler/K2/TESS format data
+
+nasa-exoplanet-detector/
+
+├── app_enhanced.py            # Streamlit web app## ✨ Features- ✅ **Instant Predictions**: XGBoost model with 87% recall
+
+├── test_api.py               # API test suite
+
+├── requirements.txt          # Dependencies- ✅ **Interactive Threshold**: Adjust confidence slider (0.0-1.0)
+
+│
+
+├── src/                      # Core ML pipeline### Current (Streamlit MVP) ✅- ✅ **Visualizations**:
+
+│   ├── preprocessing.py     # Data loading/cleaning
+
+│   ├── features.py          # Feature extraction- **CSV Upload**: Drag-and-drop Kepler/K2/TESS format data  - Probability histogram with threshold line
+
+│   └── scaling.py           # Feature scaling
+
+│- **Instant Predictions**: XGBoost model with 87.1% recall  - Feature importance chart
+
+├── backend/                  # FastAPI REST API
+
+│   ├── main.py              # FastAPI app- **Interactive Threshold**: Adjust confidence slider (0.0-1.0)- ✅ **Export Options**:
+
+│   ├── api/                 # Endpoints
+
+│   ├── core/                # Config & registry- **Visualizations**: Probability histogram + feature importance chart  - Clean CSV (9 essential columns)
+
+│   └── schemas/             # Pydantic models
+
+│- **Export Options**: Clean CSV (9 columns) or Full CSV (82 columns)  - Full CSV (all 82 columns)
+
+├── scripts/                  # Training scripts
+
+│   ├── train_xgb.py         # Train model- **Filtering**: View all/planets/false positives/high confidence- ✅ **Filtering**: View all/planets/false positives/high confidence
+
+│   ├── cross_validate.py    # CV evaluation
+
+│   ├── data_diagnostic.py   # Data analysis- **Performance**: Processes 9,000+ samples in ~2 seconds- ✅ **Performance**: Processes 9,000+ samples in ~2 seconds
+
+│   └── model_diagnostic.py  # Model analysis
+
+│
+
+├── data/                     # NASA datasets
+
+│   ├── Keppler.csv          # 9,564 samples### Coming Soon (React + FastAPI) 🔄### Coming Soon (React + FastAPI)
+
+│   ├── K2.csv
+
+│   └── TESS.csv- Multi-model support (XGBoost, CNN, Ensemble)- 🔄 Multi-model support (XGBoost, CNN, Ensemble)
+
+│
+
+└── models/                   # Trained artifacts- Real-time collaboration- 🔄 Real-time collaboration
+
+    ├── xgb.pkl              # XGBoost model
+
+    ├── scaler.pkl           # Scaler- Batch processing API- 🔄 Batch processing API
+
+    └── cv_*.csv             # CV results
+
+```- Cloud deployment (AWS/GCP/Azure)- 🔄 Cloud deployment (AWS/GCP/Azure)
+
+
+
+---- Advanced visualizations (D3.js)- 🔄 Advanced visualizations (D3.js)
+
+
+
+## 🔧 Usage- 🔄 User authentication
+
+
+
+### Train Model---
+
+```bash
+
+python scripts/train_xgb.py---
+
+```
+
+## 📊 Model Performance
+
+### Run Cross-Validation
+
+```bash## 📊 Model Performance
+
+python scripts/cross_validate.py
+
+```| Metric | Score | Target |
+
+
+
+### Data Diagnostics|--------|-------|--------|| Metric | Score | Target |
+
+```bash
+
+python scripts/data_diagnostic.py| **Recall** | 87.1% | >80% ✅ ||--------|-------|--------|
+
+```
 
 | **Precision** | 81.8% | - || **Recall** | 87.1% | >80% ✅ |
 
-| **ROC-AUC** | 89.4% | - || **Precision** | 81.8% | - |
+### Model Diagnostics
 
-| **F1 Score** | 84.3% | - || **ROC-AUC** | 89.4% | - |
+```bash| **ROC-AUC** | 89.4% | - || **Precision** | 81.8% | - |
 
-| **F1 Score** | 84.3% | - |
+python scripts/model_diagnostic.py
 
-**Cross-Validation (5-Fold Stratified):**
+```| **F1 Score** | 84.3% | - || **ROC-AUC** | 89.4% | - |
 
-- Mean Recall: 85.67% ± 1.87%**Cross-Validation (5-Fold Stratified):**
 
-- All folds >83%- Mean Recall: 85.67% ± 1.87%
 
-- ROC-AUC: 89.37% ± 0.41%- All folds >83%
+---| **F1 Score** | 84.3% | - |
 
-- ROC-AUC: 89.37% ± 0.41%
 
-**Training Data:** 9,201 Kepler samples (4,610 planets, 4,591 false positives)
 
-**Training Data:** 9,201 Kepler samples (4,610 planets, 4,591 false positives)
+## 📚 API Endpoints**Cross-Validation (5-Fold Stratified):**
 
----
 
----
 
-## 🗂️ Project Structure
+### Health Check- Mean Recall: 85.67% ± 1.87%**Cross-Validation (5-Fold Stratified):**
 
-## 🗂️ Project Structure
+```bash
+
+GET /api/health- All folds >83%- Mean Recall: 85.67% ± 1.87%
 
 ```
 
-nasa-exoplanet-detector/```
+- ROC-AUC: 89.37% ± 0.41%- All folds >83%
 
-├── app_enhanced.py            # Enhanced Streamlit app (recommended)nasa-exoplanet-detector/
+### List Models
 
-├── requirements.txt           # Python dependencies├── app.py                      # Original Streamlit app
+```bash- ROC-AUC: 89.37% ± 0.41%
 
-├── PROJECT_SPEC.md           # Full technical specification├── app_enhanced.py            # Enhanced Streamlit app (recommended)
+GET /api/models
 
-├── API_IMPLEMENTATION.md     # Backend implementation guide├── requirements.txt           # Python dependencies
+```**Training Data:** 9,201 Kepler samples (4,610 planets, 4,591 false positives)
 
-│├── PROJECT_SPEC.md           # Full technical specification
 
-├── data/                     # Raw astronomical data├── API_IMPLEMENTATION.md     # Backend implementation guide
 
-│   ├── Keppler.csv          # Kepler mission (9,564 samples)│
+### Model Metrics**Training Data:** 9,201 Kepler samples (4,610 planets, 4,591 false positives)
+
+```bash
+
+GET /api/models/xgb/metrics---
+
+```
+
+---
+
+### Feature Importance
+
+```bash## 🗂️ Project Structure
+
+GET /api/models/xgb/importance
+
+```## 🗂️ Project Structure
+
+
+
+### Predict```
+
+```bash
+
+POST /api/predictnasa-exoplanet-detector/```
+
+  - file: CSV file
+
+  - model: xgb (default)├── app_enhanced.py            # Enhanced Streamlit app (recommended)nasa-exoplanet-detector/
+
+  - threshold: 0.5 (default)
+
+```├── requirements.txt           # Python dependencies├── app.py                      # Original Streamlit app
+
+
+
+**See:** `API_IMPLEMENTATION.md` for detailed docs├── PROJECT_SPEC.md           # Full technical specification├── app_enhanced.py            # Enhanced Streamlit app (recommended)
+
+
+
+---├── API_IMPLEMENTATION.md     # Backend implementation guide├── requirements.txt           # Python dependencies
+
+
+
+## 🌟 Tech Stack│├── PROJECT_SPEC.md           # Full technical specification
+
+
+
+**ML:** XGBoost, scikit-learn, pandas, numpy  ├── data/                     # Raw astronomical data├── API_IMPLEMENTATION.md     # Backend implementation guide
+
+**Backend:** FastAPI, Uvicorn, Pydantic  
+
+**Frontend:** Streamlit, Plotly  │   ├── Keppler.csv          # Kepler mission (9,564 samples)│
+
+**Data:** NASA Kepler/K2/TESS missions
 
 │   ├── K2.csv               # K2 mission├── data/                     # Raw astronomical data
 
+---
+
 │   └── TESS.csv             # TESS mission│   ├── Keppler.csv          # Kepler mission (9,564 samples)
+
+## 📈 Roadmap
 
 ││   ├── K2.csv               # K2 mission
 
-├── models/                   # Trained model artifacts│   └── TESS.csv             # TESS mission
+- [x] XGBoost baseline (87% recall)
 
-│   ├── xgb.pkl              # XGBoost model│
+- [x] Streamlit MVP├── models/                   # Trained model artifacts│   └── TESS.csv             # TESS mission
 
-│   ├── scaler.pkl           # Feature scaler├── models/                   # Trained model artifacts
+- [x] FastAPI backend
 
-│   ├── cv_fold_metrics.csv  # Cross-validation results│   ├── xgb.pkl              # XGBoost model
+- [x] Interactive API docs│   ├── xgb.pkl              # XGBoost model│
 
-│   └── cv_predictions.csv   # Validation predictions│   ├── scaler.pkl           # Feature scaler
+- [ ] React frontend (in progress - teammate)
 
-││   ├── cv_fold_metrics.csv  # Cross-validation results
+- [ ] CNN time-series model│   ├── scaler.pkl           # Feature scaler├── models/                   # Trained model artifacts
 
-├── src/                      # Core ML pipeline│   └── cv_predictions.csv   # Validation predictions
+- [ ] Ensemble model
 
-│   ├── preprocessing.py     # Data loading and cleaning│
+- [ ] Cloud deployment│   ├── cv_fold_metrics.csv  # Cross-validation results│   ├── xgb.pkl              # XGBoost model
 
-│   ├── features.py          # Feature extraction├── src/                      # Core ML pipeline
 
-│   ├── scaling.py           # Feature scaling utilities│   ├── preprocessing.py     # Data loading and cleaning
 
-│   ├── train_xgb.py         # Training script│   ├── features.py          # Feature extraction
+---│   └── cv_predictions.csv   # Validation predictions│   ├── scaler.pkl           # Feature scaler
 
-│   ├── cross_validate.py    # 5-fold CV script│   ├── scaling.py           # Feature scaling utilities
 
-│   ├── data_diagnostic.py   # Data quality analysis│   ├── ml_model.py          # XGBoost training
 
-│   └── model_diagnostic.py  # Model behavior analysis│   ├── cnn_model.py         # CNN architecture (future)
+## 📄 Documentation││   ├── cv_fold_metrics.csv  # Cross-validation results
 
-││   ├── ensemble.py          # Ensemble logic (future)
+
+
+- **[PROJECT_SPEC.md](PROJECT_SPEC.md)** - Full technical specification├── src/                      # Core ML pipeline│   └── cv_predictions.csv   # Validation predictions
+
+- **[API_IMPLEMENTATION.md](API_IMPLEMENTATION.md)** - Backend implementation guide
+
+- **[task.txt](task.txt)** - Original NASA challenge│   ├── preprocessing.py     # Data loading and cleaning│
+
+
+
+---│   ├── features.py          # Feature extraction├── src/                      # Core ML pipeline
+
+
+
+## 🤝 Team│   ├── scaling.py           # Feature scaling utilities│   ├── preprocessing.py     # Data loading and cleaning
+
+
+
+- **Murema Manganyi** - ML/Backend│   ├── train_xgb.py         # Training script│   ├── features.py          # Feature extraction
+
+- **Thando** - Frontend
+
+- **Hlali** - Team member│   ├── cross_validate.py    # 5-fold CV script│   ├── scaling.py           # Feature scaling utilities
+
+
+
+---│   ├── data_diagnostic.py   # Data quality analysis│   ├── ml_model.py          # XGBoost training
+
+
+
+## 📧 Contact│   └── model_diagnostic.py  # Model behavior analysis│   ├── cnn_model.py         # CNN architecture (future)
+
+
+
+**Repository:** https://github.com/murema-v3-exp/nasa-exoplanet-detector  ││   ├── ensemble.py          # Ensemble logic (future)
+
+**Challenge:** NASA Space Apps 2025
 
 └── backend/                  # FastAPI application (in development)│   ├── train_xgb.py         # Training script
 
+---
+
     └── (see API_IMPLEMENTATION.md)│   ├── cross_validate.py    # 5-fold CV script
+
+<div align="center">
 
 ```│   ├── data_diagnostic.py   # Data quality analysis
 
+**Built with ❤️ for NASA Space Apps 2025**
+
 │   └── model_diagnostic.py  # Model behavior analysis
 
+*Finding new worlds, one prediction at a time.* 🌍✨
+
 ---│
+
+</div>
 
 ├── notebooks/                # Jupyter notebooks
 

@@ -17,6 +17,10 @@ try:
 except Exception as e:
     raise ImportError('xgboost is required. Install with `pip install xgboost`.')
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from src.features import extract_features
 from src.scaling import apply_scaling
 

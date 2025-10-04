@@ -9,7 +9,6 @@ import plotly.graph_objects as go
 from src.preprocessing import load_csv, clean_data, normalize_flux
 from src.features import extract_features
 from src.scaling import FeatureScaler
-from src.ensemble import ensemble_predict
 
 
 # Page config
@@ -364,8 +363,9 @@ if uploaded_file is not None:
                     st.error(f'Error running CNN model: {e}')
 
             if cnn_pred is not None and ml_pred is not None:
-                final_class = ensemble_predict(cnn_pred, ml_pred)
-                st.write('Ensembled prediction:', final_class)
+                # Simple ensemble: average predictions
+                final_pred = (cnn_pred + ml_pred) / 2
+                st.write('Ensembled prediction:', final_pred.argmax(axis=1))
             elif ml_pred is not None:
                 st.write('Classical model prediction:', ml_pred.argmax(axis=1))
             elif cnn_pred is not None:

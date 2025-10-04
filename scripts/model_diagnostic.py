@@ -9,6 +9,10 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from src.preprocessing import load_csv, clean_data
 from src.features import extract_features
 from src.scaling import FeatureScaler
