@@ -42,7 +42,8 @@ const Planet: React.FC<{
     return '#dc2626' // Hot - red
   }, [data.equilibrium_temperature])
 
-  const planetScale = Math.log(data.planet_radius + 1) * 0.3 + 0.1
+  // Better planet scaling - smaller and more consistent
+  const planetScale = Math.min(Math.log(data.planet_radius + 1) * 0.15 + 0.08, 0.4)
 
   useFrame((state) => {
     if (orbitRef.current && orbitalSpeed > 0) {
@@ -77,10 +78,16 @@ const Planet: React.FC<{
       </mesh>
       
       {isSelected && (
-        <mesh position={position}>
-          <ringGeometry args={[planetScale * 1.5, planetScale * 1.8, 32]} />
-          <meshBasicMaterial color="#ffffff" transparent opacity={0.6} side={THREE.DoubleSide} />
-        </mesh>
+        <>
+          <mesh position={position}>
+            <ringGeometry args={[planetScale * 1.8, planetScale * 2.2, 32]} />
+            <meshBasicMaterial color="#3b82f6" transparent opacity={0.8} side={THREE.DoubleSide} />
+          </mesh>
+          <mesh position={position}>
+            <ringGeometry args={[planetScale * 2.4, planetScale * 2.6, 32]} />
+            <meshBasicMaterial color="#60a5fa" transparent opacity={0.4} side={THREE.DoubleSide} />
+          </mesh>
+        </>
       )}
     </group>
   )
@@ -89,21 +96,46 @@ const Planet: React.FC<{
 // Central Star Component
 const CentralStar: React.FC<{ radius: number }> = ({ radius }) => {
   const meshRef = useRef<THREE.Mesh>(null!)
+  const coronaRef = useRef<THREE.Mesh>(null!)
   
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += 0.005
-      const intensity = 0.8 + Math.sin(state.clock.elapsedTime * 2) * 0.2
+      meshRef.current.rotation.y += 0.01
+      const intensity = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.15
       meshRef.current.scale.setScalar(radius * intensity)
+    }
+    if (coronaRef.current) {
+      coronaRef.current.rotation.y -= 0.005
+      const coronaIntensity = 1 + Math.sin(state.clock.elapsedTime * 1.5 + Math.PI) * 0.1
+      coronaRef.current.scale.setScalar(radius * 1.5 * coronaIntensity)
     }
   })
 
   return (
-    <mesh ref={meshRef} position={[0, 0, 0]}>
-      <sphereGeometry args={[radius, 32, 32]} />
-      <meshStandardMaterial color="#fbbf24" emissive="#f59e0b" emissiveIntensity={0.8} />
-      <pointLight intensity={2} distance={50} />
-    </mesh>
+    <group>
+      {/* Corona effect */}
+      <mesh ref={coronaRef} position={[0, 0, 0]}>
+        <sphereGeometry args={[radius * 1.5, 16, 16]} />
+        <meshStandardMaterial 
+          color="#ff6b35" 
+          emissive="#ff6b35" 
+          emissiveIntensity={0.3} 
+          transparent 
+          opacity={0.2} 
+        />
+      </mesh>
+      
+      {/* Main star */}
+      <mesh ref={meshRef} position={[0, 0, 0]}>
+        <sphereGeometry args={[radius, 32, 32]} />
+        <meshStandardMaterial 
+          color="#fbbf24" 
+          emissive="#f59e0b" 
+          emissiveIntensity={0.9} 
+        />
+        <pointLight intensity={3} distance={100} color="#fbbf24" />
+      </mesh>
+    </group>
   )
 }
 
@@ -136,39 +168,46 @@ const ExoplanetScene: React.FC<{
   const { camera } = useThree()
   
   useEffect(() => {
-    camera.position.set(15, 15, 15)
+    // Better camera positioning for improved view
+    camera.position.set(25, 20, 25)
     camera.lookAt(0, 0, 0)
   }, [camera])
 
   const systemData = useMemo(() => {
-    return planets.slice(0, 8).map((planet, index) => {
-      const orbitalRadius = 3 + index * 1.8
-      const angle = (index / planets.length) * Math.PI * 2
+    return planets.slice(0, 12).map((planet, index) => {
+      // Better orbital spacing - starts at 4 and increases more significantly
+      const orbitalRadius = 4 + index * 2.5
+      // More evenly distributed angles
+      const angle = (index / Math.min(planets.length, 12)) * Math.PI * 2
+      // Add some vertical variation for visual interest
+      const yOffset = (Math.sin(index * 0.7) * 0.5)
+      
       return {
         planet,
         orbitalRadius,
         position: [
           Math.cos(angle) * orbitalRadius,
-          0,
+          yOffset,
           Math.sin(angle) * orbitalRadius
         ] as [number, number, number],
-        orbitalSpeed: isAnimated ? 1 / Math.sqrt(orbitalRadius) : 0
+        orbitalSpeed: isAnimated ? 0.5 / Math.sqrt(orbitalRadius) : 0
       }
     })
   }, [planets, isAnimated])
 
   return (
     <>
-      <ambientLight intensity={0.2} />
-      <pointLight position={[20, 20, 20]} intensity={1} />
+      <ambientLight intensity={0.3} />
+      <pointLight position={[30, 30, 30]} intensity={0.8} />
+      <pointLight position={[-30, 30, -30]} intensity={0.4} />
       
-      <Stars radius={300} depth={50} count={2000} factor={4} saturation={0} fade />
+      <Stars radius={500} depth={80} count={3000} factor={6} saturation={0} fade />
       
-      <CentralStar radius={0.8} />
+      <CentralStar radius={0.6} />
       
       {systemData.map(({ planet, orbitalRadius, position, orbitalSpeed }) => (
         <React.Fragment key={planet.id}>
-          <OrbitalPath radius={orbitalRadius} />
+          <OrbitalPath radius={orbitalRadius} opacity={selectedPlanet === planet.id ? 0.6 : 0.2} />
           <Planet
             data={planet}
             position={position}
@@ -180,11 +219,12 @@ const ExoplanetScene: React.FC<{
       ))}
       
       <Text
-        position={[0, 18, 0]}
-        fontSize={1.2}
+        position={[0, 25, 0]}
+        fontSize={1.5}
         color="#e2e8f0"
         anchorX="center"
         anchorY="middle"
+        font="/fonts/helvetiker_regular.typeface.json"
       >
         Exoplanet System Visualization
       </Text>
@@ -193,8 +233,12 @@ const ExoplanetScene: React.FC<{
         enablePan={true} 
         enableZoom={true} 
         enableRotate={true}
-        minDistance={5}
-        maxDistance={50}
+        minDistance={8}
+        maxDistance={80}
+        autoRotate={false}
+        autoRotateSpeed={0.5}
+        dampingFactor={0.05}
+        enableDamping={true}
       />
     </>
   )
@@ -240,7 +284,11 @@ const ExoplanetVisualization: React.FC<ExoplanetVisualizationProps> = ({ planets
 
       <div className="visualization-content">
         <div className="canvas-container">
-          <Canvas camera={{ position: [15, 15, 15], fov: 60 }}>
+          <Canvas 
+            camera={{ position: [25, 20, 25], fov: 50 }}
+            gl={{ antialias: true, alpha: true }}
+            dpr={[1, 2]}
+          >
             <ExoplanetScene
               planets={planets}
               selectedPlanet={selectedPlanet?.id || null}
