@@ -1,38 +1,31 @@
 # NASA Exoplanet Hunter 🌌🔭# NASA Exoplanet Hunter 🌌🔭# NASA Exoplanet Hunte---
 
-
-
 [![NASA Space Apps 2025](https://img.shields.io/badge/NASA%20Space%20Apps-2025-blue)](https://www.spaceappschallenge.org/)
 
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)](https://fastapi.tiangolo.com/)[![NASA Space Apps 2025](https://img.shields.io/badge/NASA%20Space%20Apps-2025-blue)](https://www.spaceappschallenge.org/)## 🚀 Quick Start
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)](https://fastapi.tiangolo.com/)[![NASA Space Apps 2025](https://img.shields.io/badge/NASA%20Space%20Apps-2025-blue)](https://www.spaceappschallenge.org/)##
+🚀 Quick Start
 
+**AI-powered exoplanet detection system** built by **Murema Manganyi**,
+**Thando**, and **Hlali** for NASA Space
+Apps 2025.[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 
+🎯 **Goal:** Help astronomers identify promising exoplanet candidates from
+Kepler/K2/TESS mission data using machine
+learning.[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)###
+Prerequisites
 
-**AI-powered exoplanet detection system** built by **Murema Manganyi**, **Thando**, and **Hlali** for NASA Space Apps 2025.[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
-
-
-
-🎯 **Goal:** Help astronomers identify promising exoplanet candidates from Kepler/K2/TESS mission data using machine learning.[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)### Prerequisites
-
-
-
-**Status:** ✅ **MVP Complete** - Working Streamlit app + FastAPI backend with 87% recall- Python 3.12+
-
-
+**Status:** ✅ **MVP Complete** - Working Streamlit app + FastAPI backend with
+87% recall- Python 3.12+
 
 ---### NASA Space Apps Challenge 2025- pip
 
-
-
 ## 🚀 Quick Start- (Optional) Node.js 18+ for React frontend
-
-
 
 ### Installation**AI-powered exoplanet detection system** built by **Murema Manganyi**, **Thando**, and **Hlali**.
 
-```bash
+````bash
 
 # Clone repository### Installation
 
@@ -64,11 +57,10 @@ pip install -r requirements.txt
 
 streamlit run app_enhanced.py## 🚀 Quick Startpython -m venv venv
 
-```
+````
 
-🌐 Open http://localhost:8501source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-
+🌐 Open http://localhost:8501source venv/bin/activate # On Windows:
+venv\Scripts\activate
 
 ### Run FastAPI Backend### Prerequisites
 
@@ -79,8 +71,6 @@ uvicorn backend.main:app --reload --port 8000- Python 3.12+# Install dependencie
 ```
 
 📚 API Docs: http://localhost:8000/docs- pippip install -r requirements.txt
-
-
 
 ### Test API- (Optional) Node.js 18+ for React frontend```
 
@@ -94,7 +84,7 @@ python test_api.py
 
 ---
 
-```bash```bash
+`bash`bash
 
 ## ✨ Features
 
@@ -102,37 +92,39 @@ python test_api.py
 
 ### Streamlit Web App ✅
 
-- 📤 CSV upload (drag-and-drop)git clone https://github.com/YOUR_USERNAME/nasa-exoplanet-detector.git```
+-   📤 CSV upload (drag-and-drop)git clone
+    https://github.com/YOUR_USERNAME/nasa-exoplanet-detector.git```
 
-- 🎯 XGBoost predictions with 87% recall
+-   🎯 XGBoost predictions with 87% recall
 
-- 🎚️ Interactive threshold slidercd nasa-exoplanet-detector� Open http://localhost:8501 in your browser
+-   🎚️ Interactive threshold slidercd nasa-exoplanet-detector� Open
+    http://localhost:8501 in your browser
 
-- 📊 Probability histogram
+-   📊 Probability histogram
 
-- 📈 Feature importance chart
+-   📈 Feature importance chart
 
-- 💾 Clean CSV exports (9 columns)
+-   💾 Clean CSV exports (9 columns)
 
-- 🔍 Filter by confidence level# Create virtual environment### Run FastAPI Backend (In Development)
-
-
+-   🔍 Filter by confidence level# Create virtual environment### Run FastAPI
+    Backend (In Development)
 
 ### FastAPI Backend ✅python -m venv venv```bash
 
-- 🔌 6 REST API endpoints
+-   🔌 6 REST API endpoints
 
-- 📦 Model registry (auto-load models)venv\Scripts\activate  # Windows# Start API server
+-   📦 Model registry (auto-load models)venv\Scripts\activate # Windows# Start
+    API server
 
-- 🚀 Fast predictions (~2s for 9K samples)
+-   🚀 Fast predictions (~2s for 9K samples)
 
-- 📊 Performance metrics APIcd backend
+-   📊 Performance metrics APIcd backend
 
-- 🎯 Feature importance API
+-   🎯 Feature importance API
 
-- ❤️ Health check endpoint# Install dependenciespython main.py
+-   ❤️ Health check endpoint# Install dependenciespython main.py
 
-- 📖 Interactive docs (Swagger UI)
+-   📖 Interactive docs (Swagger UI)
 
 pip install -r requirements.txt# Or
 
@@ -156,25 +148,16 @@ pip install -r requirements.txt# Or
 
 | **F1 Score** | 84.3% |streamlit run app_enhanced.py---
 
-
-
 **Cross-Validation (5-Fold):** 85.67% ± 1.87% recall```
 
-
-
-**Dataset:** 9,201 Kepler samples (50/50 split)🌐 Open http://localhost:8501 in your browser## ✨ Features
-
-
+**Dataset:** 9,201 Kepler samples (50/50 split)🌐 Open http://localhost:8501 in
+your browser## ✨ Features
 
 ---
 
-
-
 ## 🗂️ Project Structure---### Current (Streamlit MVP)
 
-
-
-```- ✅ **CSV Upload**: Drag-and-drop Kepler/K2/TESS format data
+````- ✅ **CSV Upload**: Drag-and-drop Kepler/K2/TESS format data
 
 nasa-exoplanet-detector/
 
@@ -256,13 +239,13 @@ nasa-exoplanet-detector/
 
 python scripts/train_xgb.py---
 
-```
+````
 
 ## 📊 Model Performance
 
 ### Run Cross-Validation
 
-```bash## 📊 Model Performance
+````bash## 📊 Model Performance
 
 python scripts/cross_validate.py
 
@@ -276,13 +259,13 @@ python scripts/cross_validate.py
 
 python scripts/data_diagnostic.py| **Recall** | 87.1% | >80% ✅ ||--------|-------|--------|
 
-```
+````
 
 | **Precision** | 81.8% | - || **Recall** | 87.1% | >80% ✅ |
 
 ### Model Diagnostics
 
-```bash| **ROC-AUC** | 89.4% | - || **Precision** | 81.8% | - |
+````bash| **ROC-AUC** | 89.4% | - || **Precision** | 81.8% | - |
 
 python scripts/model_diagnostic.py
 
@@ -304,13 +287,13 @@ python scripts/model_diagnostic.py
 
 GET /api/health- All folds >83%- Mean Recall: 85.67% ± 1.87%
 
-```
+````
 
-- ROC-AUC: 89.37% ± 0.41%- All folds >83%
+-   ROC-AUC: 89.37% ± 0.41%- All folds >83%
 
 ### List Models
 
-```bash- ROC-AUC: 89.37% ± 0.41%
+````bash- ROC-AUC: 89.37% ± 0.41%
 
 GET /api/models
 
@@ -324,13 +307,13 @@ GET /api/models
 
 GET /api/models/xgb/metrics---
 
-```
+````
 
 ---
 
 ### Feature Importance
 
-```bash## 🗂️ Project Structure
+````bash## 🗂️ Project Structure
 
 GET /api/models/xgb/importance
 
@@ -368,7 +351,7 @@ POST /api/predictnasa-exoplanet-detector/```
 
 **ML:** XGBoost, scikit-learn, pandas, numpy  ├── data/                     # Raw astronomical data├── API_IMPLEMENTATION.md     # Backend implementation guide
 
-**Backend:** FastAPI, Uvicorn, Pydantic  
+**Backend:** FastAPI, Uvicorn, Pydantic
 
 **Frontend:** Streamlit, Plotly  │   ├── Keppler.csv          # Kepler mission (9,564 samples)│
 
@@ -532,23 +515,26 @@ predictions = (probabilities >= 0.5).astype(int)# Upload CSV in browser
 
 ---# Download results
 
-```
+````
 
 ## 📚 Documentation
 
 ### API (When Backend is Ready)
 
-- **[PROJECT_SPEC.md](PROJECT_SPEC.md)** - Complete technical specification (frontend + backend)```bash
+-   **[PROJECT_SPEC.md](PROJECT_SPEC.md)** - Complete technical specification
+    (frontend + backend)```bash
 
-- **[API_IMPLEMENTATION.md](API_IMPLEMENTATION.md)** - Step-by-step backend guide# Predict exoplanets
+-   **[API_IMPLEMENTATION.md](API_IMPLEMENTATION.md)** - Step-by-step backend
+    guide# Predict exoplanets
 
-- **[task.txt](task.txt)** - Original NASA challenge requirementscurl -X POST http://localhost:8000/api/predict \
+-   **[task.txt](task.txt)** - Original NASA challenge requirementscurl -X POST
+    http://localhost:8000/api/predict \
 
-  -F "file=@data/Keppler.csv" \
+    -F "file=@data/Keppler.csv" \
 
----  -F "model=xgb" \
+--- -F "model=xgb" \
 
-  -F "threshold=0.5"
+-F "threshold=0.5"
 
 ## 📂 Datasets & Research
 
@@ -556,13 +542,16 @@ predictions = (probabilities >= 0.5).astype(int)# Upload CSV in browser
 
 ### NASA Data Sourcescurl http://localhost:8000/api/models/xgb/metrics
 
-- **[Kepler Objects of Interest (KOI)](https://exoplanetarchive.ipac.caltech.edu/docs/API_kepobjects.html)** - Confirmed planets, candidates, and false positives
+-   **[Kepler Objects of Interest (KOI)](https://exoplanetarchive.ipac.caltech.edu/docs/API_kepobjects.html)** -
+    Confirmed planets, candidates, and false positives
 
-- **[TESS Objects of Interest (TOI)](https://tess.mit.edu/science/toi/)** - TESS mission data# Feature importance
+-   **[TESS Objects of Interest (TOI)](https://tess.mit.edu/science/toi/)** -
+    TESS mission data# Feature importance
 
-- **[K2 Planets and Candidates](https://exoplanetarchive.ipac.caltech.edu/docs/K2_objects.html)** - K2 mission datacurl http://localhost:8000/api/models/xgb/importance
+-   **[K2 Planets and Candidates](https://exoplanetarchive.ipac.caltech.edu/docs/K2_objects.html)** -
+    K2 mission datacurl http://localhost:8000/api/models/xgb/importance
 
-```
+````
 
 ### Research Articles
 
@@ -614,7 +603,7 @@ predictions = (probabilities >= 0.5).astype(int)
 
 **Machine Learning:** XGBoost, scikit-learn, pandas, numpy  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Current Stack:** Streamlit, Plotly  
+**Current Stack:** Streamlit, Plotly
 
 **Target Stack:** React 18 + TypeScript, FastAPI, Vite, TanStack Query, Recharts/D3.js### NASA Space Apps Challenge 2025
 
@@ -690,31 +679,31 @@ Our goal is to explore how artificial intelligence and machine learning can be u
 
 
 
----- **Kepler Objects of Interest (KOI)**  
+---- **Kepler Objects of Interest (KOI)**
 
-  Comprehensive list of confirmed exoplanets, planetary candidates, and false positives from the Kepler mission.  
+  Comprehensive list of confirmed exoplanets, planetary candidates, and false positives from the Kepler mission.
 
-## 📝 License  The `Disposition Using Kepler Data` column is used for classification.  
+## 📝 License  The `Disposition Using Kepler Data` column is used for classification.
 
   [Download KOI dataset](https://exoplanetarchive.ipac.caltech.edu/docs/API_kepobjects.html)
 
 This project is licensed under the MIT License.
 
-- **TESS Objects of Interest (TOI)**  
+- **TESS Objects of Interest (TOI)**
 
----  Dataset containing confirmed exoplanets (KP), planetary candidates (PC), false positives (FP), and ambiguous planetary candidates (APC) from the TESS mission.  
+---  Dataset containing confirmed exoplanets (KP), planetary candidates (PC), false positives (FP), and ambiguous planetary candidates (APC) from the TESS mission.
 
-  See the `TFOPWG Disposition` column for classification.  
+  See the `TFOPWG Disposition` column for classification.
 
 ## 🙏 Acknowledgments  [Download TOI dataset](https://tess.mit.edu/science/toi/)
 
 
 
-- **NASA Exoplanet Archive** for datasets- **K2 Planets and Candidates**  
+- **NASA Exoplanet Archive** for datasets- **K2 Planets and Candidates**
 
-- **NASA Space Apps Challenge** for the opportunity  Covers all confirmed exoplanets, planetary candidates, and false positives captured by the K2 mission.  
+- **NASA Space Apps Challenge** for the opportunity  Covers all confirmed exoplanets, planetary candidates, and false positives captured by the K2 mission.
 
-- **scikit-learn & XGBoost teams** for ML libraries  The `Archive Disposition` column provides classification labels.  
+- **scikit-learn & XGBoost teams** for ML libraries  The `Archive Disposition` column provides classification labels.
 
 - **Streamlit** for rapid prototyping  [Download K2 dataset](https://exoplanetarchive.ipac.caltech.edu/docs/K2_objects.html)
 
@@ -724,17 +713,17 @@ This project is licensed under the MIT License.
 
 
 
-## 📧 Contact- **Exoplanet Detection Using Machine Learning**  
+## 📧 Contact- **Exoplanet Detection Using Machine Learning**
 
-  Overview of exoplanetary detection methods and a survey of machine learning approaches used in the field up to 2021.  
+  Overview of exoplanetary detection methods and a survey of machine learning approaches used in the field up to 2021.
 
 **Team:** Murema Manganyi, Thando, Hlali    [Read Article](https://arxiv.org/abs/2007.14348)
 
 **Challenge:** NASA Space Apps 2025 - Exoplanet Detection
 
-- **Assessment of Ensemble-Based Machine Learning Algorithms for Exoplanet Identification**  
+- **Assessment of Ensemble-Based Machine Learning Algorithms for Exoplanet Identification**
 
----  Discusses preprocessing and ensemble methods that have achieved strong results with the NASA exoplanet datasets.  
+---  Discusses preprocessing and ensemble methods that have achieved strong results with the NASA exoplanet datasets.
 
   [Read Article](https://arxiv.org/abs/2102.06730)
 
@@ -748,19 +737,19 @@ This project is licensed under the MIT License.
 
 *"Finding new worlds, one prediction at a time."* 🌍✨
 
-- Python (pandas, scikit-learn, TensorFlow / PyTorch)  
+- Python (pandas, scikit-learn, TensorFlow / PyTorch)
 
-</div>- Flask or Streamlit for the web interface  
+</div>- Flask or Streamlit for the web interface
 
-- NASA Exoplanet Archive datasets  
+- NASA Exoplanet Archive datasets
 - Jupyter Notebook for exploration and model testing
 
 ---
 
 ## 🪐 Goals
 
-- Build a working ML model that can classify exoplanet data with good accuracy.  
-- Make the model accessible through a clean, simple web interface.  
+- Build a working ML model that can classify exoplanet data with good accuracy.
+- Make the model accessible through a clean, simple web interface.
 - Highlight how AI can accelerate exoplanet discovery using real NASA data.
 
 ---
@@ -771,19 +760,40 @@ Follow these steps to set up the project locally:
 
 1. **Clone this repository**
    ```bash
-   git clone https://github.com/<your-username>/<repo-name>.git
-   cd <repo-name>
-2. **Create a Virtual Environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # macOS/Linux
-   venv\Scripts\activate     # Windows
-3. **Install dependencies**
-    ```bash
-    pip install -r requirements.txt
-4. **Download Datasets
-   - KOI (Kepler Objects of Interest): [Download here](https://exoplanetarchive.ipac.caltech.edu/docs/API_kepobjects.html)
-  - TOI (TESS Objects of Interest): [Download here](https://tess.mit.edu/science/toi/)
-  - K2 Planets and Candidates: [Download here](https://exoplanetarchive.ipac.caltech.edu/docs/K2_objects.html)
-5. 
+   git clone https://github.com/murema-v3-exp/nasa-exoplanet-detector.git
+   cd nasa-exoplanet-detector
+````
 
+2. **Create a Virtual Environment**
+
+    ```bash
+    python3 -m venv venv
+    # The virtual environment is now created
+    ```
+
+3. **Install dependencies**
+
+    ```bash
+    # Install core ML and web dependencies
+    ./venv/bin/pip install streamlit pandas numpy scikit-learn xgboost matplotlib plotly astropy joblib
+
+    # Optional: Install TensorFlow (for future CNN models)
+    ./venv/bin/pip install tensorflow
+    ```
+
+4. **Download Datasets** ✅ **Already included!**
+
+    - ✅ KOI (Kepler Objects of Interest): `data/Keppler.csv` (7.4 MB)
+    - ✅ K2 Planets and Candidates: `data/K2.csv` (2.6 MB)
+    - ✅ TESS Objects of Interest: `data/TESS.csv` (2.0 MB)
+
+5. **Run the Application**
+
+    ```bash
+    # Start Streamlit app
+    ./venv/bin/python3 -m streamlit run app_enhanced.py --server.port 8501
+    ```
+
+    🌐 **Open http://localhost:8501 in your browser**
+
+6.
