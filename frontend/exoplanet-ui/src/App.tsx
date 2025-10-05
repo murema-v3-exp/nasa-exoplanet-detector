@@ -18,6 +18,70 @@ function App() {
   const [apiConnected, setApiConnected] = useState(false)
   const [apiVersion, setApiVersion] = useState<string>('Unknown')
 
+  // Sample exoplanet data for demonstration
+  const sampleExoplanets: ExoplanetData[] = [
+    {
+      id: 'kepler-452b',
+      name: 'Kepler-452b',
+      host_star: 'Kepler-452',
+      orbital_period: 384.8,
+      planet_radius: 1.6,
+      stellar_radius: 1.1,
+      distance_from_earth: 1402,
+      discovery_method: 'Transit',
+      discovery_year: 2015,
+      equilibrium_temperature: 265
+    },
+    {
+      id: 'kepler-186f',
+      name: 'Kepler-186f',
+      host_star: 'Kepler-186',
+      orbital_period: 129.9,
+      planet_radius: 1.1,
+      stellar_radius: 0.47,
+      distance_from_earth: 582,
+      discovery_method: 'Transit',
+      discovery_year: 2014,
+      equilibrium_temperature: 188
+    },
+    {
+      id: 'trappist-1e',
+      name: 'TRAPPIST-1e',
+      host_star: 'TRAPPIST-1',
+      orbital_period: 6.1,
+      planet_radius: 0.92,
+      stellar_radius: 0.12,
+      distance_from_earth: 40,
+      discovery_method: 'Transit',
+      discovery_year: 2017,
+      equilibrium_temperature: 251
+    },
+    {
+      id: 'proxima-b',
+      name: 'Proxima Centauri b',
+      host_star: 'Proxima Centauri',
+      orbital_period: 11.2,
+      planet_radius: 1.17,
+      stellar_radius: 0.15,
+      distance_from_earth: 4.24,
+      discovery_method: 'Radial Velocity',
+      discovery_year: 2016,
+      equilibrium_temperature: 234
+    },
+    {
+      id: 'k2-18b',
+      name: 'K2-18b',
+      host_star: 'K2-18',
+      orbital_period: 32.9,
+      planet_radius: 2.3,
+      stellar_radius: 0.36,
+      distance_from_earth: 124,
+      discovery_method: 'Transit',
+      discovery_year: 2015,
+      equilibrium_temperature: 279
+    }
+  ]
+
   // Check API health on component mount
   useEffect(() => {
     const checkApiHealth = async () => {
@@ -112,15 +176,10 @@ function App() {
           
           {activeTab === 'visualize' && (
             <div className="visualization-container">
-              {exoplanets.length > 0 ? (
-                <ExoplanetVisualization planets={exoplanets} />
-              ) : (
-                <div className="no-data-message">
-                  <Telescope size={48} />
-                  <h3>No Exoplanet Data</h3>
-                  <p>Upload and analyze data first to see 3D visualizations</p>
-                </div>
-              )}
+              <ExoplanetVisualization 
+                planets={exoplanets.length > 0 ? exoplanets : sampleExoplanets}
+                isSampleData={exoplanets.length === 0}
+              />
             </div>
           )}
           

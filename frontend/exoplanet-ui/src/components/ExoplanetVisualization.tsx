@@ -20,6 +20,7 @@ interface ExoplanetData {
 
 interface ExoplanetVisualizationProps {
   planets: ExoplanetData[]
+  isSampleData?: boolean
 }
 
 // Animated Planet Component
@@ -59,6 +60,9 @@ const Planet: React.FC<{
     }
   })
 
+  // Debug logging for planet rendering
+  console.log(`Rendering planet ${data.name} at position:`, position, 'scale:', planetScale, 'color:', planetColor)
+
   return (
     <group ref={orbitRef}>
       <mesh
@@ -71,9 +75,7 @@ const Planet: React.FC<{
         <meshStandardMaterial
           color={planetColor}
           emissive={planetColor}
-          emissiveIntensity={isSelected ? 0.3 : 0.1}
-          transparent
-          opacity={0.8}
+          emissiveIntensity={isSelected ? 0.4 : 0.2}
         />
       </mesh>
       
@@ -174,69 +176,85 @@ const ExoplanetScene: React.FC<{
   }, [camera])
 
   const systemData = useMemo(() => {
-    return planets.slice(0, 12).map((planet, index) => {
-      // Better orbital spacing - starts at 4 and increases more significantly
-      const orbitalRadius = 4 + index * 2.5
+    const validPlanets = planets.filter(p => p && p.id && p.name)
+    console.log('Valid planets for rendering:', validPlanets.length)
+    
+    return validPlanets.slice(0, 10).map((planet, index) => {
+      // Better orbital spacing - starts at 3 and increases moderately
+      const orbitalRadius = 3 + index * 1.8
       // More evenly distributed angles
-      const angle = (index / Math.min(planets.length, 12)) * Math.PI * 2
+      const angle = (index / Math.min(validPlanets.length, 10)) * Math.PI * 2
       // Add some vertical variation for visual interest
-      const yOffset = (Math.sin(index * 0.7) * 0.5)
+      const yOffset = (Math.sin(index * 0.7) * 0.3)
+      
+      const position: [number, number, number] = [
+        Math.cos(angle) * orbitalRadius,
+        yOffset,
+        Math.sin(angle) * orbitalRadius
+      ]
+      
+      console.log(`Planet ${planet.name} positioned at:`, position)
       
       return {
         planet,
         orbitalRadius,
-        position: [
-          Math.cos(angle) * orbitalRadius,
-          yOffset,
-          Math.sin(angle) * orbitalRadius
-        ] as [number, number, number],
-        orbitalSpeed: isAnimated ? 0.5 / Math.sqrt(orbitalRadius) : 0
+        position,
+        orbitalSpeed: isAnimated ? 0.3 / Math.sqrt(orbitalRadius) : 0
       }
     })
   }, [planets, isAnimated])
 
+  console.log('ExoplanetScene rendering with systemData:', systemData.length, 'items')
+
   return (
     <>
-      <ambientLight intensity={0.3} />
-      <pointLight position={[30, 30, 30]} intensity={0.8} />
-      <pointLight position={[-30, 30, -30]} intensity={0.4} />
+      <ambientLight intensity={0.4} />
+      <pointLight position={[10, 10, 10]} intensity={1} />
+      <directionalLight position={[5, 5, 5]} intensity={0.5} />
       
-      <Stars radius={500} depth={80} count={3000} factor={6} saturation={0} fade />
+      <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade />
       
-      <CentralStar radius={0.6} />
+      <CentralStar radius={0.5} />
       
-      {systemData.map(({ planet, orbitalRadius, position, orbitalSpeed }) => (
-        <React.Fragment key={planet.id}>
-          <OrbitalPath radius={orbitalRadius} opacity={selectedPlanet === planet.id ? 0.6 : 0.2} />
-          <Planet
-            data={planet}
-            position={position}
-            onClick={onPlanetSelect}
-            isSelected={selectedPlanet === planet.id}
-            orbitalSpeed={orbitalSpeed}
-          />
-        </React.Fragment>
-      ))}
+      {/* Add a test mesh to verify Three.js is working */}
+      <mesh position={[5, 0, 0]}>
+        <boxGeometry args={[0.5, 0.5, 0.5]} />
+        <meshBasicMaterial color="red" />
+      </mesh>
+      
+      {systemData.map(({ planet, orbitalRadius, position, orbitalSpeed }) => {
+        console.log(`Rendering system item for ${planet.name}`)
+        return (
+          <React.Fragment key={planet.id}>
+            <OrbitalPath radius={orbitalRadius} opacity={selectedPlanet === planet.id ? 0.6 : 0.3} />
+            <Planet
+              data={planet}
+              position={position}
+              onClick={onPlanetSelect}
+              isSelected={selectedPlanet === planet.id}
+              orbitalSpeed={orbitalSpeed}
+            />
+          </React.Fragment>
+        )
+      })}
       
       <Text
-        position={[0, 25, 0]}
-        fontSize={1.5}
-        color="#e2e8f0"
+        position={[0, 15, 0]}
+        fontSize={1}
+        color="#ffffff"
         anchorX="center"
         anchorY="middle"
-        font="/fonts/helvetiker_regular.typeface.json"
       >
-        Exoplanet System Visualization
+        Exoplanet System
       </Text>
       
       <OrbitControls 
         enablePan={true} 
         enableZoom={true} 
         enableRotate={true}
-        minDistance={8}
-        maxDistance={80}
+        minDistance={5}
+        maxDistance={50}
         autoRotate={false}
-        autoRotateSpeed={0.5}
         dampingFactor={0.05}
         enableDamping={true}
       />
@@ -244,9 +262,15 @@ const ExoplanetScene: React.FC<{
   )
 }
 
-const ExoplanetVisualization: React.FC<ExoplanetVisualizationProps> = ({ planets }) => {
+const ExoplanetVisualization: React.FC<ExoplanetVisualizationProps> = ({ planets, isSampleData = false }) => {
   const [selectedPlanet, setSelectedPlanet] = useState<ExoplanetData | null>(null)
   const [isAnimated, setIsAnimated] = useState(true)
+
+  // Debug logging
+  console.log('ExoplanetVisualization rendered:')
+  console.log('- Planet count:', planets.length)
+  console.log('- Is sample data:', isSampleData)
+  console.log('- Planets:', planets.map(p => p.name))
 
 
   const handlePlanetSelect = (planet: ExoplanetData) => {
@@ -264,6 +288,9 @@ const ExoplanetVisualization: React.FC<ExoplanetVisualizationProps> = ({ planets
           <Orbit className="title-icon" size={24} />
           <h2>Exoplanet Systems</h2>
           <span className="planet-count">{planets.length} planets</span>
+          {isSampleData && (
+            <span className="sample-data-badge">Sample Data</span>
+          )}
         </div>
         
         <div className="visualization-controls">
@@ -285,9 +312,9 @@ const ExoplanetVisualization: React.FC<ExoplanetVisualizationProps> = ({ planets
       <div className="visualization-content">
         <div className="canvas-container">
           <Canvas 
-            camera={{ position: [25, 20, 25], fov: 50 }}
-            gl={{ antialias: true, alpha: true }}
-            dpr={[1, 2]}
+            camera={{ position: [15, 15, 15], fov: 60 }}
+            style={{ background: 'transparent' }}
+            onError={(error) => console.error('Canvas error:', error)}
           >
             <ExoplanetScene
               planets={planets}
