@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Upload, FileText, Zap, Settings, AlertCircle, CheckCircle, Loader, WifiOff } from 'lucide-react'
+import { Upload, FileText, Zap, Settings, AlertCircle, CheckCircle, Loader} from 'lucide-react'
 import * as THREE from 'three'
 import { apiService } from '../services/api'
-import type { PredictionResponse, PredictionRequest } from '../services/api'
+import type { PredictionResponse } from '../services/api'
 
 interface FileUploadProps {
   onPredictionComplete: (data: PredictionResponse) => void
