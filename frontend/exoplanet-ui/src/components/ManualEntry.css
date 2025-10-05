@@ -1,0 +1,421 @@
+.manual-entry {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #e0e0e0;
+  background: linear-gradient(135deg, 
+    rgba(0, 20, 40, 0.95), 
+    rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.manual-entry::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    #00d4ff, 
+    #7c3aed, 
+    #ff0080, 
+    transparent);
+  border-radius: 12px 12px 0 0;
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.manual-entry-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+  padding-bottom: 1.5rem;
+  position: relative;
+}
+
+.manual-entry-header::before {
+  content: '// Exoplanet Data Entry Terminal';
+  position: absolute;
+  top: -1rem;
+  left: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  color: #64748b;
+  opacity: 0.7;
+}
+
+.manual-entry-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: #00d4ff;
+  font-size: 2rem;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+.manual-entry-header p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.preset-selector {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.preset-selector label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #00ff41;
+  font-weight: 500;
+  font-size: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.preset-selector select {
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, 
+    rgba(0, 20, 40, 0.9), 
+    rgba(15, 23, 42, 0.8));
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-width: 300px;
+}
+
+.preset-selector select:hover {
+  border-color: #00d4ff;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+.preset-selector select:focus {
+  outline: none;
+  border-color: #00d4ff;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  color: #00d4ff;
+}
+
+.preset-selector select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.manual-entry-form {
+  margin-bottom: 2rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form-section {
+  background: linear-gradient(135deg, 
+    rgba(0, 20, 40, 0.7), 
+    rgba(15, 23, 42, 0.6));
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.form-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 255, 65, 0.6), 
+    transparent);
+  border-radius: 8px 8px 0 0;
+}
+
+.form-section h3 {
+  margin: 0 0 1.5rem 0;
+  color: #00ff41;
+  font-size: 1.3rem;
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+  padding-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #94a3b8;
+  font-weight: 500;
+  font-size: 0.95rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, 
+    rgba(0, 20, 40, 0.8), 
+    rgba(15, 23, 42, 0.7));
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  backdrop-filter: blur(5px);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #00d4ff;
+  background: linear-gradient(135deg, 
+    rgba(0, 20, 40, 0.9), 
+    rgba(15, 23, 42, 0.8));
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  color: #00d4ff;
+}
+
+.form-group input::placeholder {
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.form-group input.error,
+.form-group select.error {
+  border-color: #f44336;
+  background: rgba(244, 67, 54, 0.1);
+}
+
+.form-group input:disabled,
+.form-group select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  display: block;
+  color: #ff0080;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  text-shadow: 0 0 10px rgba(255, 0, 128, 0.3);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  background: transparent;
+  color: inherit;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #00d4ff, #7c3aed);
+  color: white;
+  border-color: #00d4ff;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+.btn-primary.success {
+  background: linear-gradient(135deg, #00ff41, #10b981);
+  border-color: #00ff41;
+  box-shadow: 0 4px 15px rgba(0, 255, 65, 0.3);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, 
+    rgba(0, 20, 40, 0.8), 
+    rgba(15, 23, 42, 0.7));
+  color: #94a3b8;
+  border-color: rgba(0, 212, 255, 0.3);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: linear-gradient(135deg, 
+    rgba(0, 20, 40, 0.9), 
+    rgba(15, 23, 42, 0.8));
+  color: #00d4ff;
+  border-color: #00d4ff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+}
+
+.info-panel {
+  background: linear-gradient(135deg, 
+    rgba(0, 20, 40, 0.7), 
+    rgba(15, 23, 42, 0.6));
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-left: 4px solid #fbbf24;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.info-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    #fbbf24, 
+    transparent);
+  border-radius: 8px 8px 0 0;
+}
+
+.info-panel h4 {
+  margin: 0 0 1rem 0;
+  color: #fbbf24;
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+}
+
+.info-panel ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #94a3b8;
+  font-family: 'Inter', sans-serif;
+}
+
+.info-panel li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.info-panel li strong {
+  color: #e0e0e0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .manual-entry {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .form-section {
+    padding: 1rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .btn {
+    justify-content: center;
+  }
+  
+  .manual-entry-header h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .manual-entry {
+    padding: 0.5rem;
+  }
+  
+  .manual-entry-header {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .form-section {
+    padding: 0.75rem;
+  }
+  
+  .form-group input,
+  .form-group select {
+    padding: 0.6rem;
+  }
+}

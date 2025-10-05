@@ -1,17 +1,16 @@
-import { useState, Suspense, useEffect } from 'react'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Stars } from '@react-three/drei'
+import { useState, useEffect } from 'react'
 import './App.css'
-import SpaceScene from './components/SpaceScene'
 import FileUpload from './components/FileUpload'
 import PredictionResults from './components/PredictionResults'
 import ExoplanetVisualization from './components/ExoplanetVisualization'
-import { Upload, Telescope, Zap, BarChart3, Wifi, WifiOff } from 'lucide-react'
+import ManualEntry from './components/ManualEntry'
+import DynamicBackground from './components/DynamicBackground'
+import { Upload, Telescope, Zap, BarChart3, Wifi, WifiOff, Edit } from 'lucide-react'
 import { apiService, getApiStatus } from './services/api'
 import type { PredictionResponse, ExoplanetData } from './services/api'
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'upload' | 'visualize' | 'results'>('upload')
+  const [activeTab, setActiveTab] = useState<'upload' | 'manual' | 'visualize' | 'results'>('upload')
   const [predictionData, setPredictionData] = useState<PredictionResponse | null>(null)
   const [exoplanets, setExoplanets] = useState<ExoplanetData[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -111,17 +110,18 @@ function App() {
     setActiveTab('results')
   }
 
+  const handleManualExoplanetCreate = (exoplanet: ExoplanetData) => {
+    // Add the manually created exoplanet to the existing list
+    setExoplanets(prev => [...prev, exoplanet])
+    // Switch to visualization tab to show the new exoplanet
+    setActiveTab('visualize')
+  }
+
   return (
     <div className="app">
-      {/* 3D Background */}
+      {/* Background with 3 large elements only */}
       <div className="space-background">
-        <Canvas camera={{ position: [0, 0, 50], fov: 60 }}>
-          <Suspense fallback={null}>
-            <SpaceScene />
-            <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-            <OrbitControls enablePan={false} enableZoom={false} enableRotate={true} autoRotate autoRotateSpeed={0.5} />
-          </Suspense>
-        </Canvas>
+        <DynamicBackground />
       </div>
 
       {/* UI Overlay */}
@@ -147,6 +147,13 @@ function App() {
             Upload Data
           </button>
           <button 
+            className={`tab ${activeTab === 'manual' ? 'active' : ''}`}
+            onClick={() => setActiveTab('manual')}
+          >
+            <Edit size={20} />
+            Manual Entry
+          </button>
+          <button 
             className={`tab ${activeTab === 'visualize' ? 'active' : ''}`}
             onClick={() => setActiveTab('visualize')}
           >
@@ -165,27 +172,36 @@ function App() {
 
         {/* Content */}
         <main className="main-content">
-          {activeTab === 'upload' && (
-            <FileUpload 
-              onPredictionComplete={handlePredictionComplete}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
-              apiConnected={apiConnected}
-            />
-          )}
-          
-          {activeTab === 'visualize' && (
-            <div className="visualization-container">
-              <ExoplanetVisualization 
-                planets={exoplanets.length > 0 ? exoplanets : sampleExoplanets}
-                isSampleData={exoplanets.length === 0}
+          <div className="page-content fade-in">
+            {activeTab === 'upload' && (
+              <FileUpload 
+                onPredictionComplete={handlePredictionComplete}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+                apiConnected={apiConnected}
               />
-            </div>
-          )}
-          
-          {activeTab === 'results' && predictionData && (
-            <PredictionResults data={predictionData} />
-          )}
+            )}
+            
+            {activeTab === 'manual' && (
+              <ManualEntry 
+                onExoplanetCreate={handleManualExoplanetCreate}
+                isLoading={isLoading}
+              />
+            )}
+            
+            {activeTab === 'visualize' && (
+              <div className="visualization-container">
+                <ExoplanetVisualization 
+                  planets={exoplanets.length > 0 ? exoplanets : sampleExoplanets}
+                  isSampleData={exoplanets.length === 0 || exoplanets.every(p => p.id.startsWith('sample-'))}
+                />
+              </div>
+            )}
+            
+            {activeTab === 'results' && predictionData && (
+              <PredictionResults data={predictionData} />
+            )}
+          </div>
         </main>
 
         {/* Status Bar */}

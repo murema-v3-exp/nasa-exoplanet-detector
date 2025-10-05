@@ -13,11 +13,14 @@
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.3.0",
     "@react-three/postprocessing": "^3.0.4",
+    "@types/react-transition-group": "^4.4.12",
     "@types/three": "^0.180.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.544.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-transition-group": "^4.4.5",
+    "recharts": "^3.2.1",
     "three": "^0.180.0"
   },
   "devDependencies": {

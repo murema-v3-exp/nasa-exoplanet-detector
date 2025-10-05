@@ -176,51 +176,85 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
         .upload-header {
           text-align: center;
           margin-bottom: 2rem;
+          border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+          padding-bottom: 1.5rem;
         }
 
         .upload-header h2 {
+          font-family: 'JetBrains Mono', monospace;
           font-size: 2rem;
-          background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+          background: linear-gradient(45deg, #00d4ff, #ff0080, #7c3aed);
+          background-size: 200% 200%;
           background-clip: text;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           margin-bottom: 0.5rem;
+          animation: gradientShift 3s ease-in-out infinite;
         }
 
         .upload-header p {
-          color: #94a3b8;
-          font-size: 1rem;
+          font-family: 'JetBrains Mono', monospace;
+          color: rgba(0, 255, 65, 0.8);
+          font-size: 0.9rem;
           line-height: 1.5;
+          letter-spacing: 0.05em;
+        }
+
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
 
         .upload-zone {
           position: relative;
-          border: 2px dashed #475569;
-          border-radius: 1rem;
-          background: rgba(15, 23, 42, 0.5);
-          backdrop-filter: blur(10px);
+          border: 2px dashed rgba(0, 212, 255, 0.3);
+          border-radius: 12px;
+          background: linear-gradient(135deg, 
+            rgba(0, 20, 40, 0.95), 
+            rgba(15, 23, 42, 0.8));
+          backdrop-filter: blur(20px);
           padding: 3rem;
           text-align: center;
           cursor: pointer;
-          transition: all 0.3s ease;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           min-height: 300px;
           overflow: hidden;
+          box-shadow: 
+            0 25px 50px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .upload-zone:hover {
-          border-color: #3b82f6;
-          background: rgba(59, 130, 246, 0.05);
+          border-color: #00d4ff;
+          background: linear-gradient(135deg, 
+            rgba(0, 212, 255, 0.1), 
+            rgba(15, 23, 42, 0.9));
+          transform: translateY(-2px);
+          box-shadow: 
+            0 35px 60px rgba(0, 0, 0, 0.4),
+            0 0 30px rgba(0, 212, 255, 0.2);
         }
 
         .upload-zone.drag-active {
-          border-color: #10b981;
-          background: rgba(16, 185, 129, 0.1);
+          border-color: #00ff41;
+          background: linear-gradient(135deg, 
+            rgba(0, 255, 65, 0.1), 
+            rgba(15, 23, 42, 0.9));
           transform: scale(1.02);
+          box-shadow: 
+            0 0 50px rgba(0, 255, 65, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .upload-zone.has-file {
-          border-color: #10b981;
-          background: rgba(16, 185, 129, 0.05);
+          border-color: #00ff41;
+          background: linear-gradient(135deg, 
+            rgba(0, 255, 65, 0.1), 
+            rgba(15, 23, 42, 0.9));
+          box-shadow: 
+            0 0 30px rgba(0, 255, 65, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .upload-3d-bg {
@@ -252,23 +286,32 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
         }
 
         .upload-content h3 {
-          font-size: 1.5rem;
-          color: #e2e8f0;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 1.3rem;
+          color: #ffffff;
           margin: 0;
+          font-weight: 600;
         }
 
         .upload-content p {
-          color: #94a3b8;
+          font-family: 'JetBrains Mono', monospace;
+          color: rgba(0, 255, 65, 0.8);
           margin: 0;
+          font-size: 0.9rem;
         }
 
         .file-info {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          color: #64748b;
-          font-size: 0.875rem;
+          color: rgba(148, 163, 184, 0.8);
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.8rem;
           margin-top: 1rem;
+          padding: 0.5rem 1rem;
+          background: rgba(0, 20, 40, 0.6);
+          border: 1px solid rgba(0, 212, 255, 0.2);
+          border-radius: 6px;
         }
 
         .file-actions {
@@ -458,8 +501,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
       `}</style>
 
       <div className="upload-header">
-        <h2>🚀 Upload Exoplanet Data</h2>
-        <p>Upload CSV files from Kepler, K2, or TESS missions for AI-powered exoplanet detection</p>
+        <h2>Upload Exoplanet Data</h2>
+        <p>// Upload CSV files from Kepler, K2, or TESS missions for AI-powered exoplanet detection</p>
       </div>
 
       {/* File Drop Zone with 3D Background */}
@@ -488,10 +531,10 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
             <>
               <Upload className="upload-icon" size={48} />
               <h3>Drop CSV file here or click to browse</h3>
-              <p>Supports: Kepler KOI, K2, TESS TOI formats</p>
+              <p>// Supports: Kepler KOI, K2, TESS TOI formats</p>
               <div className="file-info">
                 <FileText size={16} />
-                Max size: 50MB • CSV format only
+                <span>Max size: 50MB • CSV format only</span>
               </div>
             </>
           ) : (
