@@ -1,9 +1,10 @@
 /* Prediction Results Styles - Cyberpunk Theme */
 .prediction-results {
   padding: 2rem;
-  color: #e2e8f0;
-  width: 100%;
-  font-family: 'Inter', system-ui, sans-serif;
+  max-width: 1400px;
+  margin: 0 auto;
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .results-header {
@@ -265,7 +266,7 @@
   font-size: 0.75rem;
   color: #94a3b8;
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 300;
   white-space: nowrap;
 }
@@ -736,7 +737,7 @@
   margin: 0.25rem 0;
   font-size: 0.75rem;
   color: #94a3b8;
-  font-family: 'Inter', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 /* Button Styles */

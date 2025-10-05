@@ -60,6 +60,20 @@ def extract_features(df, mode='catalog'):
             feats_df['label'] = df[label_col]
             break
     
-    # Minimal cleaning: drop rows lacking the core numeric features
+    # Minimal cleaning: drop rows lacking the most essential features
+    # Only require orbital_period and planet_radius; allow transit_duration to be NaN
     feats_df = feats_df.dropna(subset=['orbital_period', 'planet_radius'], how='any')
+    
+    # Fill NaN values in transit_duration with median where possible
+    if not feats_df['transit_duration'].isna().all():
+        median_duration = feats_df['transit_duration'].median()
+        if pd.notna(median_duration):
+            feats_df['transit_duration'] = feats_df['transit_duration'].fillna(median_duration)
+        else:
+            # If all transit_duration values are NaN, use a default based on typical values
+            feats_df['transit_duration'] = feats_df['transit_duration'].fillna(3.0)
+    else:
+        # If all transit_duration values are NaN, use a default
+        feats_df['transit_duration'] = 3.0
+    
     return feats_df

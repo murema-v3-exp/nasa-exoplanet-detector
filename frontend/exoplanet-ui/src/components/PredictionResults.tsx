@@ -287,7 +287,7 @@ const PredictionResults: React.FC<PredictionResultsProps> = ({ data }) => {
         p.features.orbital_period || '',
         p.features.planet_radius || ''
       ].join(','))
-    ].join('\\n')
+    ].join('\n')
     
     const blob = new Blob([csv], { type: 'text/csv' })
     const url = URL.createObjectURL(blob)

@@ -175,21 +175,7 @@
   50% { background-position: 100% 50%; }
 }
 
-/* Add version/status indicator */
-.logo::after {
-  content: 'v2.1.0';
-  position: absolute;
-  top: -0.5rem;
-  right: -2rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: var(--terminal-green);
-  background: rgba(0, 255, 65, 0.1);
-  border: 1px solid var(--terminal-green);
-  border-radius: 4px;
-  padding: 0.125rem 0.375rem;
-  animation: statusBlink 2s infinite;
-}
+/* Version indicator removed - shown in status bar instead */
 
 @keyframes statusBlink {
   0%, 90% { opacity: 1; }
@@ -354,6 +340,12 @@
   width: 100%;
   position: relative;
   scroll-behavior: smooth;
+}
+
+/* Override for About page to prevent double scrollbars */
+.main-content:has(.about-container) {
+  overflow: hidden;
+  padding: 0;
 }
 
 /* Terminal-style content wrapper */

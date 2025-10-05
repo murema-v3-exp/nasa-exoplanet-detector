@@ -1,10 +1,16 @@
 """FastAPI main application"""
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+import time
+import logging
 
 from backend.core.config import settings
-from backend.api import predict, models, health, manual
+from backend.api import predict, models, health, manual, datasets
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 # Create FastAPI app
@@ -15,6 +21,21 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc"
 )
+
+# Request logging middleware
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    start_time = time.time()
+    print(f"BACKEND: Incoming {request.method} {request.url}")
+    print(f"BACKEND: Headers: {dict(request.headers)}")
+    
+    response = await call_next(request)
+    
+    process_time = time.time() - start_time
+    print(f"BACKEND: {request.method} {request.url} completed in {process_time:.3f}s")
+    print(f"BACKEND: Response status: {response.status_code}")
+    
+    return response
 
 # CORS middleware
 app.add_middleware(
@@ -30,6 +51,7 @@ app.include_router(predict.router, prefix=settings.API_V1_PREFIX, tags=["Predict
 app.include_router(models.router, prefix=settings.API_V1_PREFIX, tags=["Models"])
 app.include_router(health.router, prefix=settings.API_V1_PREFIX, tags=["Health"])
 app.include_router(manual.router, prefix=settings.API_V1_PREFIX, tags=["Manual Entry"])
+app.include_router(datasets.router, prefix=settings.API_V1_PREFIX, tags=["Datasets"])
 
 
 @app.get("/")

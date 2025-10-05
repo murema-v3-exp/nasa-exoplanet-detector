@@ -23,13 +23,13 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
     equilibrium_temperature: 0
   })
   
-  // Prediction state
+  // Prediction state with realistic defaults
   const [predictionData, setPredictionData] = useState<ManualPredictionInput>({
-    orbital_period: 0,
-    planet_radius: 0,
-    transit_duration: 0,
-    transit_depth: undefined,
-    stellar_temp: undefined,
+    orbital_period: 10.5,
+    planet_radius: 2.3,
+    transit_duration: 3.2,
+    transit_depth: 1000,
+    stellar_temp: 5778,
     model: 'xgb_multi'
   })
   const [predictionResult, setPredictionResult] = useState<ManualPredictionResponse | null>(null)
@@ -75,6 +75,46 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
     }
   ]
 
+  // Preset prediction examples for testing ML model
+  const predictionPresets = [
+    {
+      name: 'Hot Jupiter (Likely Planet)',
+      orbital_period: 3.5,
+      planet_radius: 1.8,
+      transit_duration: 2.4,
+      transit_depth: 1200,
+      stellar_temp: 6000,
+      description: 'Typical hot Jupiter parameters - should classify as PLANET'
+    },
+    {
+      name: 'Super Earth (Likely Planet)',
+      orbital_period: 12.8,
+      planet_radius: 1.6,
+      transit_duration: 4.1,
+      transit_depth: 800,
+      stellar_temp: 5200,
+      description: 'Super Earth in habitable zone - should classify as PLANET'
+    },
+    {
+      name: 'False Positive Example',
+      orbital_period: 0.5,
+      planet_radius: 0.2,
+      transit_duration: 0.1,
+      transit_depth: 50,
+      stellar_temp: 3000,
+      description: 'Unrealistic parameters - should classify as FALSE POSITIVE'
+    },
+    {
+      name: 'Earth-like (Borderline)',
+      orbital_period: 365.25,
+      planet_radius: 1.0,
+      transit_duration: 13.0,
+      transit_depth: 84,
+      stellar_temp: 5778,
+      description: 'Earth-like parameters - classification may vary'
+    }
+  ]
+
   const discoveryMethods = [
     'Transit',
     'Radial Velocity',
@@ -90,15 +130,15 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
 
     if (mode === 'create') {
       if (!formData.name.trim()) newErrors.name = 'Planet name is required'
-      if (!formData.host_star.trim()) newErrors.host_star = 'Host star name is required'
-      if (formData.orbital_period <= 0) newErrors.orbital_period = 'Orbital period must be positive'
-      if (formData.planet_radius <= 0) newErrors.planet_radius = 'Planet radius must be positive'
-      if (formData.stellar_radius <= 0) newErrors.stellar_radius = 'Stellar radius must be positive'
-      if (formData.distance_from_earth <= 0) newErrors.distance_from_earth = 'Distance must be positive'
-      if (formData.discovery_year < 1995 || formData.discovery_year > new Date().getFullYear() + 10) {
+      if (!formData.host_star?.trim()) newErrors.host_star = 'Host star name is required'
+      if ((formData.orbital_period ?? 0) <= 0) newErrors.orbital_period = 'Orbital period must be positive'
+      if ((formData.planet_radius ?? 0) <= 0) newErrors.planet_radius = 'Planet radius must be positive'
+      if ((formData.stellar_radius ?? 0) <= 0) newErrors.stellar_radius = 'Stellar radius must be positive'
+      if ((formData.distance_from_earth ?? 0) <= 0) newErrors.distance_from_earth = 'Distance must be positive'
+      if ((formData.discovery_year ?? 0) < 1995 || (formData.discovery_year ?? 0) > new Date().getFullYear() + 10) {
         newErrors.discovery_year = 'Discovery year must be between 1995 and ' + (new Date().getFullYear() + 10)
       }
-      if (formData.equilibrium_temperature < 0) newErrors.equilibrium_temperature = 'Temperature cannot be negative'
+      if ((formData.equilibrium_temperature ?? 0) < 0) newErrors.equilibrium_temperature = 'Temperature cannot be negative'
     } else {
       if (predictionData.orbital_period <= 0) newErrors.orbital_period = 'Orbital period must be positive'
       if (predictionData.planet_radius <= 0) newErrors.planet_radius = 'Planet radius must be positive'
@@ -117,10 +157,13 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
     setErrors({})
     
     try {
+      console.log('🚀 Starting manual prediction with data:', predictionData)
       const result = await apiService.predictManual(predictionData)
+      console.log('✅ Prediction successful:', result)
       setPredictionResult(result)
       setSuccess(true)
     } catch (error) {
+      console.error('❌ Prediction failed:', error)
       setErrors({ api: error instanceof Error ? error.message : 'Prediction failed' })
     } finally {
       setPredictionLoading(false)
@@ -182,12 +225,13 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
       discovery_year: new Date().getFullYear(),
       equilibrium_temperature: 0
     })
+    // Reset to realistic defaults for prediction mode
     setPredictionData({
-      orbital_period: 0,
-      planet_radius: 0,
-      transit_duration: 0,
-      transit_depth: undefined,
-      stellar_temp: undefined,
+      orbital_period: 10.5,
+      planet_radius: 2.3,
+      transit_duration: 3.2,
+      transit_depth: 1000,
+      stellar_temp: 5778,
       model: 'xgb_multi'
     })
     setPredictionResult(null)
@@ -198,6 +242,23 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
   const loadPreset = (index: number) => {
     if (index >= 0 && index < presetExoplanets.length) {
       setFormData(presetExoplanets[index])
+      setErrors({})
+      setSuccess(false)
+    }
+  }
+
+  const loadPredictionPreset = (index: number) => {
+    if (index >= 0 && index < predictionPresets.length) {
+      const preset = predictionPresets[index]
+      setPredictionData({
+        orbital_period: preset.orbital_period,
+        planet_radius: preset.planet_radius,
+        transit_duration: preset.transit_duration,
+        transit_depth: preset.transit_depth,
+        stellar_temp: preset.stellar_temp,
+        model: 'xgb_multi'
+      })
+      setPredictionResult(null)
       setErrors({})
       setSuccess(false)
     }
@@ -253,6 +314,29 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
             </select>
           </div>
         )}
+
+        {mode === 'predict' && (
+          <div className="preset-selector">
+            <label htmlFor="prediction-preset-select">Test with Examples:</label>
+            <select
+              id="prediction-preset-select"
+              onChange={(e) => {
+                const index = parseInt(e.target.value)
+                if (!isNaN(index)) {
+                  loadPredictionPreset(index)
+                }
+              }}
+              disabled={predictionLoading}
+            >
+              <option value="">Select a test case...</option>
+              {predictionPresets.map((preset, index) => (
+                <option key={index} value={index}>
+                  {preset.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
 
       <form onSubmit={handleSubmit} className="manual-entry-form">
@@ -282,7 +366,7 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
                   <input
                     type="text"
                     id="host_star"
-                    value={formData.host_star}
+                    value={formData.host_star || ''}
                     onChange={(e) => handleInputChange('host_star', e.target.value)}
                     placeholder="e.g., Kepler-442"
                     className={errors.host_star ? 'error' : ''}
@@ -295,7 +379,7 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
                   <label htmlFor="discovery_method">Discovery Method</label>
                   <select
                     id="discovery_method"
-                    value={formData.discovery_method}
+                    value={formData.discovery_method || 'Transit'}
                     onChange={(e) => handleInputChange('discovery_method', e.target.value)}
                     disabled={isLoading}
                   >
@@ -310,7 +394,7 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
                   <input
                     type="number"
                     id="discovery_year"
-                    value={formData.discovery_year}
+                    value={formData.discovery_year || new Date().getFullYear()}
                     onChange={(e) => handleInputChange('discovery_year', parseInt(e.target.value) || 0)}
                     min={1995}
                     max={new Date().getFullYear()}
@@ -330,7 +414,7 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
                   <input
                     type="number"
                     id="orbital_period"
-                    value={formData.orbital_period}
+                    value={formData.orbital_period || 0}
                     onChange={(e) => handleInputChange('orbital_period', parseFloat(e.target.value) || 0)}
                     step="0.01"
                     min="0.01"
@@ -346,7 +430,7 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
                   <input
                     type="number"
                     id="planet_radius"
-                    value={formData.planet_radius}
+                    value={formData.planet_radius || 0}
                     onChange={(e) => handleInputChange('planet_radius', parseFloat(e.target.value) || 0)}
                     step="0.01"
                     min="0.01"
@@ -362,7 +446,7 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
                   <input
                     type="number"
                     id="stellar_radius"
-                    value={formData.stellar_radius}
+                    value={formData.stellar_radius || 0}
                     onChange={(e) => handleInputChange('stellar_radius', parseFloat(e.target.value) || 0)}
                     step="0.01"
                     min="0.01"
@@ -378,7 +462,7 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
                   <input
                     type="number"
                     id="equilibrium_temperature"
-                    value={formData.equilibrium_temperature}
+                    value={formData.equilibrium_temperature || 0}
                     onChange={(e) => handleInputChange('equilibrium_temperature', parseFloat(e.target.value) || 0)}
                     step="1"
                     min="0"
@@ -400,7 +484,7 @@ const ManualEntry: React.FC<ManualEntryProps> = ({ onExoplanetCreate, isLoading 
                   <input
                     type="number"
                     id="distance_from_earth"
-                    value={formData.distance_from_earth}
+                    value={formData.distance_from_earth || 0}
                     onChange={(e) => handleInputChange('distance_from_earth', parseFloat(e.target.value) || 0)}
                     step="0.1"
                     min="0.1"

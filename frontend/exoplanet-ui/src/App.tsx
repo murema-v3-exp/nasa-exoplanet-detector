@@ -4,13 +4,16 @@ import FileUpload from './components/FileUpload'
 import PredictionResults from './components/PredictionResults'
 import ExoplanetVisualization from './components/ExoplanetVisualization'
 import ManualEntry from './components/ManualEntry'
+import About from './components/About'
+import DatasetExplorer from './components/DatasetExplorer'
+import './components/DatasetExplorer.css'
 import DynamicBackground from './components/DynamicBackground'
-import { Upload, Telescope, Zap, BarChart3, Wifi, WifiOff, Edit } from 'lucide-react'
+import { Upload, BarChart3, Target, Edit3, Users, Database, Telescope, Edit, Zap, Wifi, WifiOff } from 'lucide-react'
 import { apiService, getApiStatus } from './services/api'
 import type { PredictionResponse, ExoplanetData } from './services/api'
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'upload' | 'manual' | 'visualize' | 'results'>('upload')
+  const [activeTab, setActiveTab] = useState<'upload' | 'manual' | 'visualize' | 'results' | 'datasets' | 'about'>('upload')
   const [predictionData, setPredictionData] = useState<PredictionResponse | null>(null)
   const [exoplanets, setExoplanets] = useState<ExoplanetData[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -81,7 +84,7 @@ function App() {
     }
   ]
 
-  // Check API health on component mount
+  // Check API health and load sample data on component mount
   useEffect(() => {
     const checkApiHealth = async () => {
       try {
@@ -96,7 +99,28 @@ function App() {
       }
     }
 
+    const loadSampleData = async () => {
+      try {
+        // Try to load combined sample data from all datasets
+        const sampleData = await apiService.getCombinedSampleData(30) // 30 per dataset
+        if (sampleData.success && sampleData.exoplanets.length > 0) {
+          setExoplanets(sampleData.exoplanets)
+          console.log(`Loaded ${sampleData.exoplanets.length} exoplanets from real datasets`)
+        } else {
+          // Fallback to hardcoded sample data
+          setExoplanets(sampleExoplanets)
+          console.log('Using fallback sample data')
+        }
+      } catch (error) {
+        console.error('Failed to load sample data:', error)
+        // Use hardcoded sample data as fallback
+        setExoplanets(sampleExoplanets)
+      }
+    }
+
     checkApiHealth()
+    loadSampleData()
+    
     // Check API health every 30 seconds
     const interval = setInterval(checkApiHealth, 30000)
     return () => clearInterval(interval)
@@ -168,6 +192,20 @@ function App() {
             <BarChart3 size={20} />
             Results
           </button>
+          <button 
+            className={`tab ${activeTab === 'datasets' ? 'active' : ''}`}
+            onClick={() => setActiveTab('datasets')}
+          >
+            <Database size={20} />
+            Datasets
+          </button>
+          <button 
+            className={`tab ${activeTab === 'about' ? 'active' : ''}`}
+            onClick={() => setActiveTab('about')}
+          >
+            <Users size={20} />
+            About
+          </button>
         </nav>
 
         {/* Content */}
@@ -201,6 +239,17 @@ function App() {
             {activeTab === 'results' && predictionData && (
               <PredictionResults data={predictionData} />
             )}
+            
+            {activeTab === 'datasets' && (
+              <DatasetExplorer onExoplanetSelect={(selectedExoplanets) => {
+                setExoplanets(selectedExoplanets)
+                setActiveTab('visualize')
+              }} />
+            )}
+
+            {activeTab === 'about' && (
+              <About />
+            )}
           </div>
         </main>
 
@@ -218,7 +267,7 @@ function App() {
             Model: {predictionData?.model_used.toUpperCase() || 'XGBoost'}
           </div>
           <div className="status-item">
-            Dataset: Kepler/K2/TESS
+            Telescope: {predictionData?.telescope || 'Kepler/K2/TESS'}
           </div>
         </footer>
       </div>

@@ -13,6 +13,7 @@ interface FileUploadProps {
 }
 
 interface UploadSettings {
+  telescope: string
   model: string
   threshold: number
 }
@@ -76,6 +77,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
   const [dragActive, setDragActive] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [settings, setSettings] = useState<UploadSettings>({
+    telescope: 'kepler',
     model: 'xgb',
     threshold: 0.5
   })
@@ -100,12 +102,22 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
     setDragActive(false)
     
     const files = e.dataTransfer.files
+    console.log('File drop event:', { filesCount: files?.length })
+    
     if (files && files[0]) {
+      console.log('File dropped:', {
+        name: files[0].name,
+        type: files[0].type,
+        size: files[0].size
+      })
+      
       if (files[0].type === 'text/csv' || files[0].name.endsWith('.csv')) {
         setFile(files[0])
         setError(null)
+        console.log('CSV file accepted via drop')
       } else {
         setError('Please upload a CSV file')
+        console.log('Invalid file type via drop')
       }
     }
   }, [])
@@ -145,21 +157,43 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const files = e.target.files
+    console.log('File input event:', { filesCount: files?.length })
+    
     if (files && files[0]) {
+      console.log('File selected:', {
+        name: files[0].name,
+        type: files[0].type,
+        size: files[0].size
+      })
+      
       if (files[0].type === 'text/csv' || files[0].name.endsWith('.csv')) {
         setFile(files[0])
         setError(null)
+        console.log('CSV file accepted')
       } else {
         setError('Please upload a CSV file')
+        console.log('Invalid file type')
       }
     }
   }
 
   const handlePredict = async () => {
-    if (!file) return
+    if (!file) {
+      console.log('No file selected for prediction')
+      return
+    }
+    
+    console.log('Starting prediction process:', {
+      fileName: file.name,
+      fileSize: file.size,
+      model: settings.model,
+      threshold: settings.threshold,
+      apiConnected: apiConnected
+    })
     
     if (!apiConnected) {
       setError('API server is not connected. Please check if the backend is running.')
+      console.log('API not connected, aborting prediction')
       return
     }
     
@@ -173,8 +207,10 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
         setUploadProgress(prev => Math.min(prev + Math.random() * 20, 90))
       }, 200)
       
+      console.log('Calling predictExoplanets API...')
       const data = await apiService.predictExoplanets({
         file,
+        telescope: settings.telescope,
         model: settings.model,
         threshold: settings.threshold
       })
@@ -182,16 +218,27 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
       clearInterval(progressInterval)
       setUploadProgress(100)
       
+      console.log('Prediction completed successfully:', {
+        totalPredictions: data.predictions?.length,
+        planetsFound: data.predictions?.filter(p => p.prediction === 'PLANET').length,
+        summary: data.summary
+      })
+      
       // Small delay to show completion
       setTimeout(() => {
+        console.log('Calling onPredictionComplete callback')
         onPredictionComplete(data)
       }, 500)
       
     } catch (err) {
+      console.error('Prediction failed:', err)
       setError(err instanceof Error ? err.message : 'Failed to process file')
       setUploadProgress(0)
     } finally {
-      setTimeout(() => setIsLoading(false), 1000)
+      setTimeout(() => {
+        console.log('Prediction process finished, setting loading to false')
+        setIsLoading(false)
+      }, 1000)
     }
   }
 
@@ -604,6 +651,27 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
         <h3><Settings size={20} /> Prediction Settings</h3>
         
         <div className="setting-group">
+          <label>Telescope Source</label>
+          <select 
+            value={settings.telescope} 
+            onChange={(e) => setSettings(prev => ({ ...prev, telescope: e.target.value }))}
+            disabled={isLoading}
+          >
+            <option value="kepler">Kepler</option>
+            <option value="k2">K2</option>
+            <option value="tess">TESS</option>
+          </select>
+          <div className="field-description">
+            Select the telescope that generated your data. Each telescope has different column formats:
+            <ul style={{fontSize: '0.85em', marginTop: '0.5em', paddingLeft: '1.5em'}}>
+              <li><strong>Kepler:</strong> KOI data with koi_period, koi_duration, koi_depth</li>
+              <li><strong>K2:</strong> Confirmed planets with pl_orbper, pl_rade, discovery data</li>
+              <li><strong>TESS:</strong> TOI data with pl_orbper, pl_trandurh, pl_trandep</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div className="setting-group">
           <label>Model Selection {modelsLoading && <span className="loading-text">(Loading...)</span>}</label>
           <select 
             value={settings.model} 
@@ -612,10 +680,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
           >
             {availableModels.length > 0 ? (
               availableModels.map(model => {
-                const performanceText = model.performance?.recall 
-                  ? ` (${(model.performance.recall * 100).toFixed(1)}% Recall)`
-                  : ''
-                const statusIcon = model.status === 'ready' ? ' ✅' : ''
+                const statusIcon = model.status === 'ready' ? ' [Ready]' : ''
                 const isDisabled = model.status !== 'ready'
                 
                 return (
@@ -624,8 +689,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
                     value={model.id}
                     disabled={isDisabled}
                   >
-                    {model.name}{performanceText}{statusIcon}
-                    {model.note && ` - ${model.note}`}
+                    {model.name}{statusIcon}
+                    {model.description && ` - ${model.description}`}
                   </option>
                 )
               })

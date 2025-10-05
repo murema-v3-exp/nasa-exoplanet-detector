@@ -1,0 +1,44 @@
+# COLUMN pl_name:        Planet Name
+# COLUMN hostname:       Host Name
+# COLUMN default_flag:   Default Parameter Set
+# COLUMN disposition:    Archive Disposition
+# COLUMN disp_refname:   Archive Disposition Reference
+# COLUMN sy_snum:        Number of Stars
+# COLUMN sy_pnum:        Number of Planets
+# COLUMN discoverymethod: Discovery Method
+# COLUMN disc_year:      Discovery Year
+# COLUMN disc_facility:  Discovery Facility
+# COLUMN soltype:        Solution Type
+# COLUMN pl_controv_flag: Controversial Flag
+# COLUMN pl_refname:     Planetary Parameter Reference
+# COLUMN pl_orbper:      Orbital Period [days]
+# COLUMN pl_orbsmax:     Orbit Semi-Major Axis [au]
+# COLUMN pl_rade:        Planet Radius [Earth Radius]
+# COLUMN pl_radj:        Planet Radius [Jupiter Radius]
+# COLUMN pl_bmasse:      Planet Mass or Mass*sin(i) [Earth Mass]
+# COLUMN pl_bmassj:      Planet Mass or Mass*sin(i) [Jupiter Mass]
+# COLUMN pl_bmassprov:   Planet Mass or Mass*sin(i) Provenance
+# COLUMN pl_orbeccen:    Eccentricity
+# COLUMN pl_insol:       Insolation Flux [Earth Flux]
+# COLUMN pl_eqt:         Equilibrium Temperature [K]
+# COLUMN ttv_flag:       Data show Transit Timing Variations
+# COLUMN st_refname:     Stellar Parameter Reference
+# COLUMN st_spectype:    Spectral Type
+# COLUMN st_teff:        Stellar Effective Temperature [K]
+# COLUMN st_rad:         Stellar Radius [Solar Radius]
+# COLUMN st_mass:        Stellar Mass [Solar mass]
+# COLUMN st_met:         Stellar Metallicity [dex]
+# COLUMN st_metratio:    Stellar Metallicity Ratio
+# COLUMN st_logg:        Stellar Surface Gravity [log10(cm/s**2)]
+# COLUMN sy_refname:     System Parameter Reference
+# COLUMN rastr:          RA [sexagesimal]
+# COLUMN ra:             RA [deg]
+# COLUMN decstr:         Dec [sexagesimal]
+# COLUMN dec:            Dec [deg]
+# COLUMN sy_dist:        Distance [pc]
+# COLUMN sy_vmag:        V (Johnson) Magnitude
+# COLUMN sy_kmag:        Ks (2MASS) Magnitude
+# COLUMN sy_gaiamag:     Gaia Magnitude
+# COLUMN rowupdate:      Date of Last Update
+# COLUMN pl_pubdate:     Planetary Parameter Reference Publication Date
+# COLUMN releasedate:    Release Date

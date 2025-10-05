@@ -39,6 +39,7 @@ class PredictionResponse(BaseModel):
     """Response schema for prediction endpoint"""
     success: bool = True
     model_used: str
+    telescope: str
     threshold: float
     total_samples: int
     predictions: List[SinglePrediction]
