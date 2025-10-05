@@ -29,23 +29,46 @@ class ModelRegistry:
         """Load all available models on startup"""
         models_dir = settings.MODELS_DIR
         
-        # Load XGBoost
+        # Load XGBoost (Kepler only)
         xgb_path = models_dir / "xgb.pkl"
         if xgb_path.exists():
             self._models["xgb"] = joblib.load(xgb_path)
             self._metadata["xgb"] = {
-                "name": "XGBoost Baseline",
+                "name": "XGBoost Baseline (Kepler)",
                 "type": "gradient_boosting",
                 "status": "ready",
+                "dataset": "Kepler",
+                "recall": 0.871,
                 "file": str(xgb_path)
             }
             print(f"✅ Loaded model: xgb from {xgb_path}")
+        
+        # Load XGBoost Multi-Dataset (Kepler + K2 + TESS)
+        xgb_multi_path = models_dir / "xgb_multi.pkl"
+        if xgb_multi_path.exists():
+            self._models["xgb_multi"] = joblib.load(xgb_multi_path)
+            self._metadata["xgb_multi"] = {
+                "name": "XGBoost Multi-Dataset (Kepler+K2+TESS)",
+                "type": "gradient_boosting",
+                "status": "ready",
+                "dataset": "Kepler+K2+TESS",
+                "recall": 0.889,
+                "samples": 19418,
+                "file": str(xgb_multi_path)
+            }
+            print(f"✅ Loaded model: xgb_multi from {xgb_multi_path}")
         
         # Load XGBoost scaler
         scaler_path = models_dir / "scaler.pkl"
         if scaler_path.exists():
             self._scalers["xgb"] = FeatureScaler.load(scaler_path)
             print(f"✅ Loaded scaler: xgb from {scaler_path}")
+        
+        # Load XGBoost Multi scaler
+        scaler_multi_path = models_dir / "scaler_multi.pkl"
+        if scaler_multi_path.exists():
+            self._scalers["xgb_multi"] = FeatureScaler.load(scaler_multi_path)
+            print(f"✅ Loaded scaler: xgb_multi from {scaler_multi_path}")
     
     def get_model(self, model_name: str):
         """Get a loaded model by name"""

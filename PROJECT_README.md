@@ -18,11 +18,13 @@
 ### **Option 1: Automated Launcher (Recommended)**
 
 **Windows:**
+
 ```powershell
 .\start.bat
 ```
 
 **Linux/Mac:**
+
 ```bash
 chmod +x start.sh
 ./start.sh
@@ -31,6 +33,7 @@ chmod +x start.sh
 ### **Option 2: Manual Launch**
 
 **Terminal 1 - Backend:**
+
 ```bash
 # Activate virtual environment (if using one)
 source venv/bin/activate  # Linux/Mac
@@ -42,6 +45,7 @@ uvicorn backend.main:app --reload --port 8000
 ```
 
 **Terminal 2 - Frontend:**
+
 ```bash
 cd frontend/exoplanet-ui
 npm install  # First time only
@@ -49,6 +53,7 @@ npm run dev
 ```
 
 **Access Application:**
+
 - 🌐 Frontend: http://localhost:5173
 - 🔌 Backend API: http://localhost:8000
 - 📚 API Documentation: http://localhost:8000/docs
@@ -148,10 +153,10 @@ nasa-exoplanet-detector/
 
 ### Models
 
-| Model | Dataset | Samples | Recall | Precision | ROC-AUC |
-|-------|---------|---------|--------|-----------|---------|
-| **xgb** | Kepler | 9,201 | 87.1% | 81.8% | 89.4% |
-| **xgb_multi** | Kepler + K2 + TESS | 19,418 | **88.9%** | **93.2%** | **92.1%** |
+| Model         | Dataset            | Samples | Recall    | Precision | ROC-AUC   |
+| ------------- | ------------------ | ------- | --------- | --------- | --------- |
+| **xgb**       | Kepler             | 9,201   | 87.1%     | 81.8%     | 89.4%     |
+| **xgb_multi** | Kepler + K2 + TESS | 19,418  | **88.9%** | **93.2%** | **92.1%** |
 
 ### Features Used
 
@@ -179,11 +184,13 @@ python scripts/cross_validate.py
 ## 🔌 API Reference
 
 ### **Health Check**
+
 ```http
 GET /api/health
 ```
 
 **Response:**
+
 ```json
 {
   "status": "healthy",
@@ -194,11 +201,13 @@ GET /api/health
 ```
 
 ### **List Models**
+
 ```http
 GET /api/models
 ```
 
 **Response:**
+
 ```json
 {
   "models": [
@@ -219,17 +228,20 @@ GET /api/models
 ```
 
 ### **Predict Exoplanets**
+
 ```http
 POST /api/predict
 Content-Type: multipart/form-data
 ```
 
 **Parameters:**
+
 - `file` (required) - CSV file with exoplanet data
 - `model` (optional) - Model ID (default: "xgb")
 - `threshold` (optional) - Classification threshold 0.0-1.0 (default: 0.5)
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -248,11 +260,13 @@ Content-Type: multipart/form-data
 ```
 
 ### **Model Metrics**
+
 ```http
 GET /api/models/{model_id}/metrics
 ```
 
 ### **Feature Importance**
+
 ```http
 GET /api/models/{model_id}/importance
 ```
@@ -264,17 +278,20 @@ See [API_ENDPOINTS.md](frontend/API_ENDPOINTS.md) for complete documentation.
 ## 📊 Dataset Information
 
 ### Kepler Mission
+
 - **Samples:** 9,564 (9,201 after preprocessing)
 - **Planets:** 4,619
 - **False Positives:** 4,582
 - **Source:** NASA Exoplanet Archive
 
 ### K2 Mission
+
 - **Samples:** 4,004 (3,127 after preprocessing)
 - **All Confirmed Planets**
 - **Extended Kepler Mission**
 
 ### TESS Mission
+
 - **Samples:** 7,703 (7,090 after preprocessing)
 - **All Confirmed Planets**
 - **Ongoing Mission**
@@ -286,6 +303,7 @@ See [API_ENDPOINTS.md](frontend/API_ENDPOINTS.md) for complete documentation.
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **React 19.1** - UI framework
 - **TypeScript 5.9** - Type safety
 - **Vite 7** - Build tool
@@ -295,6 +313,7 @@ See [API_ENDPOINTS.md](frontend/API_ENDPOINTS.md) for complete documentation.
 - **Lucide React** - Icons
 
 ### Backend
+
 - **Python 3.8+**
 - **FastAPI** - Web framework
 - **Uvicorn** - ASGI server
@@ -309,6 +328,7 @@ See [API_ENDPOINTS.md](frontend/API_ENDPOINTS.md) for complete documentation.
 ## 📦 Installation
 
 ### Prerequisites
+
 - **Python 3.8+** - [Download](https://www.python.org/downloads/)
 - **Node.js 16+** - [Download](https://nodejs.org/)
 - **pip** - Python package manager
@@ -339,6 +359,7 @@ npm install
 ## 🧪 Testing
 
 ### Backend Tests
+
 ```bash
 # Test API endpoints
 python test_api.py
@@ -348,6 +369,7 @@ python scripts/model_diagnostic.py
 ```
 
 ### Frontend Tests
+
 ```bash
 cd frontend/exoplanet-ui
 npm run lint
@@ -358,16 +380,16 @@ npm run build  # Production build test
 
 ## 🎯 NASA Space Apps Challenge Requirements
 
-| Requirement | Status | Implementation |
-|-------------|--------|----------------|
-| Train on NASA datasets | ✅ | Kepler + K2 + TESS (19,418 samples) |
-| Web interface | ✅ | React + Three.js frontend |
-| Manual data entry | ⚠️ | Planned for Phase B |
-| Model statistics | ✅ | Available via API and UI |
-| Hyperparameter tuning | ⚠️ | Planned for Phase B |
-| Online learning | ⚠️ | Planned for Phase B |
-| Support researchers | ✅ | Detailed metrics and CSV export |
-| Support novices | ✅ | Educational visualizations |
+| Requirement            | Status | Implementation                      |
+| ---------------------- | ------ | ----------------------------------- |
+| Train on NASA datasets | ✅     | Kepler + K2 + TESS (19,418 samples) |
+| Web interface          | ✅     | React + Three.js frontend           |
+| Manual data entry      | ⚠️     | Planned for Phase B                 |
+| Model statistics       | ✅     | Available via API and UI            |
+| Hyperparameter tuning  | ⚠️     | Planned for Phase B                 |
+| Online learning        | ⚠️     | Planned for Phase B                 |
+| Support researchers    | ✅     | Detailed metrics and CSV export     |
+| Support novices        | ✅     | Educational visualizations          |
 
 **Status:** Competition-ready MVP with core features complete
 
@@ -376,11 +398,13 @@ npm run build  # Production build test
 ## 🚀 Deployment
 
 ### Docker (Coming Soon)
+
 ```bash
 docker-compose up
 ```
 
 ### Production Build
+
 ```bash
 # Frontend
 cd frontend/exoplanet-ui
@@ -417,6 +441,7 @@ This project was developed for **NASA Space Apps Challenge 2025**.
 ## 🌟 Future Enhancements
 
 ### Phase B (High Priority)
+
 - [ ] Manual data entry form
 - [ ] Hyperparameter tuning interface
 - [ ] Online learning / model retraining
@@ -425,6 +450,7 @@ This project was developed for **NASA Space Apps Challenge 2025**.
 - [ ] Ensemble model (XGBoost + CNN)
 
 ### Phase C (Polish)
+
 - [ ] Model comparison dashboard
 - [ ] Confidence intervals
 - [ ] Batch processing UI
@@ -436,6 +462,7 @@ This project was developed for **NASA Space Apps Challenge 2025**.
 ## 📞 Support
 
 For questions or issues:
+
 1. Check [API Documentation](http://localhost:8000/docs)
 2. Review [Frontend API Guide](frontend/API_ENDPOINTS.md)
 3. Open an issue on GitHub

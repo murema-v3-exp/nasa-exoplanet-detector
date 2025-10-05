@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from backend.core.config import settings
-from backend.api import predict, models, health
+from backend.api import predict, models, health, manual
 
 
 # Create FastAPI app
@@ -29,6 +29,7 @@ app.add_middleware(
 app.include_router(predict.router, prefix=settings.API_V1_PREFIX, tags=["Predictions"])
 app.include_router(models.router, prefix=settings.API_V1_PREFIX, tags=["Models"])
 app.include_router(health.router, prefix=settings.API_V1_PREFIX, tags=["Health"])
+app.include_router(manual.router, prefix=settings.API_V1_PREFIX, tags=["Manual Entry"])
 
 
 @app.get("/")

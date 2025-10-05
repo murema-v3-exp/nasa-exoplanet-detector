@@ -9,12 +9,12 @@
 
 ### ✅ What's Working
 
-| Component | Status | Details |
-|-----------|--------|---------|
-| **Backend API** | ✅ Running | FastAPI on http://localhost:8000 |
-| **Frontend UI** | ✅ Running | React + Vite on http://localhost:5173 |
-| **ML Models** | ✅ Loaded | 2 models (xgb, xgb_multi) |
-| **Data Pipeline** | ✅ Ready | 3 NASA datasets (19,418 samples) |
+| Component           | Status       | Details                                  |
+| ------------------- | ------------ | ---------------------------------------- |
+| **Backend API**     | ✅ Running   | FastAPI on http://localhost:8000         |
+| **Frontend UI**     | ✅ Running   | React + Vite on http://localhost:5173    |
+| **ML Models**       | ✅ Loaded    | 2 models (xgb, xgb_multi)                |
+| **Data Pipeline**   | ✅ Ready     | 3 NASA datasets (19,418 samples)         |
 | **API Integration** | ✅ Connected | Frontend ↔ Backend communication working |
 
 ---
@@ -22,6 +22,7 @@
 ## 🤖 Machine Learning Models
 
 ### Model 1: XGBoost (Kepler Only)
+
 - **Dataset:** Kepler mission (9,201 samples)
 - **Performance:**
   - Recall: **87.1%**
@@ -31,6 +32,7 @@
 - **API ID:** `xgb`
 
 ### Model 2: XGBoost Multi-Dataset ⭐
+
 - **Dataset:** Kepler + K2 + TESS (19,418 samples)
 - **Performance:**
   - Recall: **88.9%** ⬆️
@@ -46,6 +48,7 @@
 ## 🌐 Frontend Features
 
 ### Current Implementation
+
 - ✅ **3D Space Environment** - Three.js immersive background
 - ✅ **File Upload** - Drag & drop CSV files (Kepler/K2/TESS)
 - ✅ **Model Selection** - Switch between xgb and xgb_multi
@@ -57,6 +60,7 @@
 - ✅ **Loading Animations** - Progress indicators
 
 ### Tech Stack
+
 - React 19.1
 - TypeScript 5.9
 - Three.js + @react-three/fiber
@@ -69,14 +73,14 @@
 
 ### Available Endpoints
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/api/health` | GET | Health check & status |
-| `/api/models` | GET | List available models |
-| `/api/models/{id}/metrics` | GET | Model performance metrics |
-| `/api/models/{id}/importance` | GET | Feature importance |
-| `/api/predict` | POST | Upload CSV & get predictions |
-| `/docs` | GET | Interactive API documentation |
+| Endpoint                      | Method | Purpose                       |
+| ----------------------------- | ------ | ----------------------------- |
+| `/api/health`                 | GET    | Health check & status         |
+| `/api/models`                 | GET    | List available models         |
+| `/api/models/{id}/metrics`    | GET    | Model performance metrics     |
+| `/api/models/{id}/importance` | GET    | Feature importance            |
+| `/api/predict`                | POST   | Upload CSV & get predictions  |
+| `/docs`                       | GET    | Interactive API documentation |
 
 ### Example: Predict Exoplanets
 
@@ -88,6 +92,7 @@ curl -X POST http://localhost:8000/api/predict \
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -109,15 +114,16 @@ curl -X POST http://localhost:8000/api/predict \
 
 ### NASA Mission Data
 
-| Mission | Samples | Format | Status |
-|---------|---------|--------|--------|
-| **Kepler** | 9,564 → 9,201 | KOI CSV | ✅ Loaded |
-| **K2** | 4,004 → 3,127 | Planet CSV | ✅ Loaded |
-| **TESS** | 7,703 → 7,090 | TOI CSV | ✅ Loaded |
+| Mission    | Samples       | Format     | Status    |
+| ---------- | ------------- | ---------- | --------- |
+| **Kepler** | 9,564 → 9,201 | KOI CSV    | ✅ Loaded |
+| **K2**     | 4,004 → 3,127 | Planet CSV | ✅ Loaded |
+| **TESS**   | 7,703 → 7,090 | TOI CSV    | ✅ Loaded |
 
 **Total:** 19,418 samples from 3 NASA missions
 
 ### Features Extracted
+
 1. **Orbital Period** (days)
 2. **Planet Radius** (Earth radii)
 3. **Transit Duration** (hours)
@@ -131,11 +137,13 @@ curl -X POST http://localhost:8000/api/predict \
 ### Method 1: Automated Launcher ⭐ Recommended
 
 **Windows:**
+
 ```powershell
 .\start.bat
 ```
 
 This will:
+
 1. ✅ Check Python & Node.js
 2. ✅ Start backend on port 8000
 3. ✅ Start frontend on port 5173
@@ -144,17 +152,20 @@ This will:
 ### Method 2: Manual Launch
 
 **Terminal 1 - Backend:**
+
 ```bash
 uvicorn backend.main:app --reload --port 8000
 ```
 
 **Terminal 2 - Frontend:**
+
 ```bash
 cd frontend/exoplanet-ui
 npm run dev
 ```
 
 ### Access Points
+
 - 🌐 **Application:** http://localhost:5173
 - 🔌 **API:** http://localhost:8000
 - 📚 **API Docs:** http://localhost:8000/docs
@@ -163,16 +174,16 @@ npm run dev
 
 ## 🎯 NASA Space Apps Requirements
 
-| Requirement | Status | Notes |
-|-------------|--------|-------|
-| Train on NASA data | ✅ | Kepler + K2 + TESS (19,418 samples) |
-| Web interface | ✅ | React + Three.js with 3D viz |
-| File upload | ✅ | Drag & drop CSV support |
-| Model statistics | ✅ | Available in API & UI |
-| Multiple models | ✅ | xgb and xgb_multi |
-| Real-time predictions | ✅ | ~2 seconds for 9K samples |
-| Export results | ✅ | CSV download |
-| Visual feedback | ✅ | 3D visualization + charts |
+| Requirement           | Status | Notes                               |
+| --------------------- | ------ | ----------------------------------- |
+| Train on NASA data    | ✅     | Kepler + K2 + TESS (19,418 samples) |
+| Web interface         | ✅     | React + Three.js with 3D viz        |
+| File upload           | ✅     | Drag & drop CSV support             |
+| Model statistics      | ✅     | Available in API & UI               |
+| Multiple models       | ✅     | xgb and xgb_multi                   |
+| Real-time predictions | ✅     | ~2 seconds for 9K samples           |
+| Export results        | ✅     | CSV download                        |
+| Visual feedback       | ✅     | 3D visualization + charts           |
 
 **Competition Readiness:** ✅ **100% Core Features Complete**
 
@@ -181,16 +192,19 @@ npm run dev
 ## 📈 Performance Benchmarks
 
 ### Processing Speed
+
 - **9,201 samples (Kepler):** ~1.8-2.0 seconds
 - **3,127 samples (K2):** ~0.6 seconds
 - **7,090 samples (TESS):** ~1.2 seconds
 
 ### Model Performance
+
 - **Training Time:** ~15 seconds (multi-dataset)
 - **Prediction Speed:** ~200ms per 1000 samples
 - **Memory Usage:** <500MB RAM
 
 ### API Response Times
+
 - Health check: <10ms
 - List models: <5ms
 - Predictions: 1.8-2.5 seconds (includes processing)
@@ -200,12 +214,14 @@ npm run dev
 ## 🔧 System Requirements
 
 ### Minimum
+
 - **Python:** 3.8+
 - **Node.js:** 16+
 - **RAM:** 4GB
 - **Disk:** 500MB (with data)
 
 ### Recommended
+
 - **Python:** 3.10+
 - **Node.js:** 18+
 - **RAM:** 8GB
@@ -217,12 +233,14 @@ npm run dev
 ## 🐛 Known Issues & Limitations
 
 ### Current Limitations
+
 1. ⚠️ **Manual Data Entry** - Not yet implemented (planned Phase B)
 2. ⚠️ **Hyperparameter Tuning** - Interface ready, backend pending
 3. ⚠️ **Online Learning** - Not implemented (planned Phase B)
 4. ⚠️ **Time-series Viz** - Basic only (full lightcurves pending)
 
 ### Minor Issues
+
 - Frontend shows "XGBoost" in status bar (hardcoded, should be dynamic)
 - No confidence intervals on predictions
 - Limited to 200 data points in 3D visualization (performance)
@@ -233,18 +251,19 @@ npm run dev
 
 ## 📚 Documentation
 
-| Document | Location | Purpose |
-|----------|----------|---------|
-| **Project Overview** | `PROJECT_README.md` | Complete project documentation |
-| **API Reference** | `frontend/API_ENDPOINTS.md` | API endpoint details |
-| **Setup Verification** | `verify_setup.py` | System checks |
-| **Launch Scripts** | `start.bat` / `start.sh` | Automated startup |
+| Document               | Location                    | Purpose                        |
+| ---------------------- | --------------------------- | ------------------------------ |
+| **Project Overview**   | `PROJECT_README.md`         | Complete project documentation |
+| **API Reference**      | `frontend/API_ENDPOINTS.md` | API endpoint details           |
+| **Setup Verification** | `verify_setup.py`           | System checks                  |
+| **Launch Scripts**     | `start.bat` / `start.sh`    | Automated startup              |
 
 ---
 
 ## 🎯 Next Steps (Post-Competition)
 
 ### Phase B: Advanced Features
+
 - [ ] Manual data entry form
 - [ ] Hyperparameter tuning interface
 - [ ] Online learning / retraining
@@ -252,6 +271,7 @@ npm run dev
 - [ ] CNN model for flux analysis
 
 ### Phase C: Production Polish
+
 - [ ] Docker containerization
 - [ ] CI/CD pipeline
 - [ ] Model comparison dashboard
@@ -259,6 +279,7 @@ npm run dev
 - [ ] Multi-language support
 
 ### Phase D: Deployment
+
 - [ ] Cloud hosting (AWS/Azure/GCP)
 - [ ] Database integration
 - [ ] User authentication
@@ -270,6 +291,7 @@ npm run dev
 ## 🎉 Competition Readiness
 
 ### ✅ Strengths
+
 1. **Comprehensive Dataset** - 19,418 samples from 3 NASA missions
 2. **High Performance** - 88.9% recall exceeds requirements
 3. **Beautiful UI** - Immersive 3D experience with Three.js
@@ -278,6 +300,7 @@ npm run dev
 6. **Documentation** - Extensive API docs and guides
 
 ### 🌟 Unique Features
+
 - **Multi-dataset training** (Kepler + K2 + TESS)
 - **3D interactive visualization**
 - **Real-time API status monitoring**
@@ -285,6 +308,7 @@ npm run dev
 - **Adjustable threshold** for sensitivity tuning
 
 ### 🏆 Competition Edge
+
 - ✅ Exceeds 80% recall requirement (88.9%)
 - ✅ Professional UI/UX design
 - ✅ Comprehensive documentation
@@ -296,11 +320,13 @@ npm run dev
 ## 📞 Support & Resources
 
 ### Quick Help
+
 - **API not responding?** Check if backend is running on port 8000
 - **Frontend blank?** Check if Vite dev server is on port 5173
 - **Model not loading?** Run `python verify_setup.py`
 
 ### Useful Commands
+
 ```bash
 # Verify system
 python verify_setup.py
@@ -323,6 +349,7 @@ cd frontend/exoplanet-ui && npm run dev
 **NASA Exoplanet Hunter** is a complete, production-ready AI system for detecting exoplanets using NASA mission data. With a beautiful 3D React frontend, robust FastAPI backend, and high-performance XGBoost models trained on 19,418 samples, the system is ready to compete and win! 🏆
 
 ### Quick Stats
+
 - ✅ **88.9% Recall** on test set
 - ✅ **19,418 Training Samples** from 3 missions
 - ✅ **2 Production Models** ready to use
