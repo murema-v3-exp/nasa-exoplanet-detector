@@ -4,13 +4,14 @@ import FileUpload from './components/FileUpload'
 import PredictionResults from './components/PredictionResults'
 import ExoplanetVisualization from './components/ExoplanetVisualization'
 import ManualEntry from './components/ManualEntry'
+import About from './components/About'
 import DynamicBackground from './components/DynamicBackground'
-import { Upload, Telescope, Zap, BarChart3, Wifi, WifiOff, Edit } from 'lucide-react'
+import { Upload, Telescope, Zap, BarChart3, Wifi, WifiOff, Edit, Info } from 'lucide-react'
 import { apiService, getApiStatus } from './services/api'
 import type { PredictionResponse, ExoplanetData } from './services/api'
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'upload' | 'manual' | 'visualize' | 'results'>('upload')
+  const [activeTab, setActiveTab] = useState<'upload' | 'manual' | 'visualize' | 'results' | 'about'>('upload')
   const [predictionData, setPredictionData] = useState<PredictionResponse | null>(null)
   const [exoplanets, setExoplanets] = useState<ExoplanetData[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -168,6 +169,13 @@ function App() {
             <BarChart3 size={20} />
             Results
           </button>
+          <button 
+            className={`tab ${activeTab === 'about' ? 'active' : ''}`}
+            onClick={() => setActiveTab('about')}
+          >
+            <Info size={20} />
+            About
+          </button>
         </nav>
 
         {/* Content */}
@@ -200,6 +208,10 @@ function App() {
             
             {activeTab === 'results' && predictionData && (
               <PredictionResults data={predictionData} />
+            )}
+            
+            {activeTab === 'about' && (
+              <About />
             )}
           </div>
         </main>
