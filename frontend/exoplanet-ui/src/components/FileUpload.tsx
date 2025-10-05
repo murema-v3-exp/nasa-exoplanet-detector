@@ -1,9 +1,9 @@
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Upload, FileText, Zap, Settings, AlertCircle, CheckCircle, Loader} from 'lucide-react'
 import * as THREE from 'three'
 import { apiService } from '../services/api'
-import type { PredictionResponse } from '../services/api'
+import type { PredictionResponse, ModelInfo } from '../services/api'
 
 interface FileUploadProps {
   onPredictionComplete: (data: PredictionResponse) => void
@@ -13,7 +13,7 @@ interface FileUploadProps {
 }
 
 interface UploadSettings {
-  model: 'xgb' | 'cnn' | 'ensemble'
+  model: string
   threshold: number
 }
 
@@ -81,6 +81,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
   })
   const [error, setError] = useState<string | null>(null)
   const [uploadProgress, setUploadProgress] = useState(0)
+  const [availableModels, setAvailableModels] = useState<ModelInfo[]>([])
+  const [modelsLoading, setModelsLoading] = useState(false)
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault()
@@ -107,6 +109,38 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
       }
     }
   }, [])
+
+  // Fetch available models on component mount
+  useEffect(() => {
+    const fetchModels = async () => {
+      if (!apiConnected) return
+      
+      setModelsLoading(true)
+      try {
+        const response = await apiService.getModels()
+        setAvailableModels(response.models)
+        
+        // Set default model to first available model if current selection is not available
+        const availableModelIds = response.models.map(m => m.id)
+        if (!availableModelIds.includes(settings.model)) {
+          const firstAvailableModel = response.models.find(m => m.status === 'ready')
+          if (firstAvailableModel) {
+            setSettings(prev => ({ ...prev, model: firstAvailableModel.id }))
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch models:', error)
+        // Fallback to hardcoded models
+        setAvailableModels([
+          { id: 'xgb', name: 'XGBoost Baseline', type: 'gradient_boosting', status: 'ready' }
+        ])
+      } finally {
+        setModelsLoading(false)
+      }
+    }
+    
+    fetchModels()
+  }, [apiConnected, settings.model])
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -367,6 +401,12 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
           margin-bottom: 0.5rem;
         }
 
+        .loading-text {
+          color: rgba(0, 212, 255, 0.8);
+          font-size: 0.75rem;
+          font-weight: 400;
+        }
+
         .setting-group select {
           width: 100%;
           padding: 0.75rem;
@@ -564,15 +604,34 @@ const FileUpload: React.FC<FileUploadProps> = ({ onPredictionComplete, isLoading
         <h3><Settings size={20} /> Prediction Settings</h3>
         
         <div className="setting-group">
-          <label>Model Selection</label>
+          <label>Model Selection {modelsLoading && <span className="loading-text">(Loading...)</span>}</label>
           <select 
             value={settings.model} 
-            onChange={(e) => setSettings(prev => ({ ...prev, model: e.target.value as any }))}
-            disabled={isLoading}
+            onChange={(e) => setSettings(prev => ({ ...prev, model: e.target.value }))}
+            disabled={isLoading || modelsLoading}
           >
-            <option value="xgb">XGBoost Baseline (87.1% Recall) ✅</option>
-            <option value="cnn" disabled>1D CNN Time-Series (Coming Soon)</option>
-            <option value="ensemble" disabled>Ensemble Model (Coming Soon)</option>
+            {availableModels.length > 0 ? (
+              availableModels.map(model => {
+                const performanceText = model.performance?.recall 
+                  ? ` (${(model.performance.recall * 100).toFixed(1)}% Recall)`
+                  : ''
+                const statusIcon = model.status === 'ready' ? ' ✅' : ''
+                const isDisabled = model.status !== 'ready'
+                
+                return (
+                  <option 
+                    key={model.id} 
+                    value={model.id}
+                    disabled={isDisabled}
+                  >
+                    {model.name}{performanceText}{statusIcon}
+                    {model.note && ` - ${model.note}`}
+                  </option>
+                )
+              })
+            ) : (
+              <option value="xgb">XGBoost Baseline (Loading models...)</option>
+            )}
           </select>
         </div>
         

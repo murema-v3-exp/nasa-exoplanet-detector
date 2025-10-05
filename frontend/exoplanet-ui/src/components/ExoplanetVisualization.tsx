@@ -216,12 +216,6 @@ const ExoplanetScene: React.FC<{
       
       <CentralStar radius={0.5} />
       
-      {/* Add a test mesh to verify Three.js is working */}
-      <mesh position={[5, 0, 0]}>
-        <boxGeometry args={[0.5, 0.5, 0.5]} />
-        <meshBasicMaterial color="red" />
-      </mesh>
-      
       {systemData.map(({ planet, orbitalRadius, position, orbitalSpeed }) => {
         console.log(`Rendering system item for ${planet.name}`)
         return (

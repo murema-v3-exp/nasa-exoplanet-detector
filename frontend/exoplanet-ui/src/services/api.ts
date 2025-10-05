@@ -44,6 +44,34 @@ export interface ApiError {
   detail?: string
 }
 
+export interface ModelInfo {
+  id: string
+  name: string
+  type: string
+  status: string
+  performance?: Record<string, number>
+  note?: string
+}
+
+export interface ManualPredictionInput {
+  orbital_period: number
+  planet_radius: number
+  transit_duration: number
+  transit_depth?: number
+  stellar_temp?: number
+  model?: string
+}
+
+export interface ManualPredictionResponse {
+  success: boolean
+  prediction: 'PLANET' | 'FALSE POSITIVE'
+  probability: number
+  confidence: 'HIGH' | 'MEDIUM' | 'LOW'
+  model_used: string
+  features_used: Record<string, number>
+  interpretation: string
+}
+
 class ApiService {
   private baseURL: string
 
@@ -98,7 +126,7 @@ class ApiService {
   }
 
   // Get available models
-  async getModels(): Promise<{ models: string[] }> {
+  async getModels(): Promise<{ models: ModelInfo[] }> {
     try {
       const response = await fetch(`${this.baseURL}/models`)
       if (!response.ok) {
@@ -107,6 +135,30 @@ class ApiService {
       return await response.json()
     } catch (error) {
       console.error('Get models error:', error)
+      throw error
+    }
+  }
+
+  // Manual prediction for single exoplanet parameters
+  async predictManual(input: ManualPredictionInput): Promise<ManualPredictionResponse> {
+    try {
+      const response = await fetch(`${this.baseURL}/manual-predict`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(input),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.detail || `Manual prediction failed: ${response.status}`)
+      }
+
+      return result
+    } catch (error) {
+      console.error('Manual prediction error:', error)
       throw error
     }
   }
